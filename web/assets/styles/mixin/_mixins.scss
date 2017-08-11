@@ -1,0 +1,521 @@
+@charset "UTF-8";
+/* Prefixer
+   ========================================================================== */
+/// A mixin for generating vendor prefixes on non-standardized properties.
+///   .element {
+///     @include prefixer(border-radius, 10px, webkit ms spec);
+///   }
+$prefix-for-webkit:     true !default;
+$prefix-for-mozilla:    true !default;
+$prefix-for-microsoft:  true !default;
+$prefix-for-opera:      true !default;
+$prefix-for-spec:       true !default;
+
+@mixin prefixer($property, $value, $prefixes) {
+    @each $prefix in $prefixes {
+        @if $prefix == webkit {
+            @if $prefix-for-webkit {
+                -webkit-#{$property}: $value;
+            }
+        } @else if $prefix == moz {
+            @if $prefix-for-mozilla {
+                -moz-#{$property}: $value;
+            }
+        } @else if $prefix == ms {
+            @if $prefix-for-microsoft {
+                -ms-#{$property}: $value;
+            }
+        } @else if $prefix == o {
+            @if $prefix-for-opera {
+                -o-#{$property}: $value;
+            }
+        } @else if $prefix == spec {
+            @if $prefix-for-spec {
+                #{$property}: $value;
+            }
+        } @else  {
+            @warn "Unrecognized prefix: #{$prefix}";
+        }
+    }
+}
+
+@mixin disable-prefix-for-all() {
+    $prefix-for-webkit:    false !global;
+    $prefix-for-mozilla:   false !global;
+    $prefix-for-microsoft: false !global;
+    $prefix-for-opera:     false !global;
+    $prefix-for-spec:      false !global;
+}
+
+/* Box Model
+  ========================================================================== */
+@mixin box-sizing($box-model) {
+    @include prefixer(box-sizing, $box-model, webkit moz);
+}
+
+@mixin backface-visibility($visibility) {
+  @include prefixer(backface-visibility, $visibility, webkit spec);
+}
+
+@mixin clearfix() {
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+/* Keyframes
+  ========================================================================== */
+@mixin keyframe($animation-name) {
+    @-webkit-keyframes #{$animation-name} { @content; }
+    @-moz-keyframes #{$animation-name} { @content; }
+    @-ms-keyframes #{$animation-name} { @content; }
+    @-o-keyframes #{$animation-name} { @content; }
+    @keyframes #{$animation-name} { @content; }
+}
+/*
+    Animations
+    @include animation(0s, 1s, ease, fadein)
+ */
+@mixin animation($delay, $duration, $timing, $animation, $direction: normal, $fillmode: fowards, $iteration: null) {
+
+    @include prefixer(animation-delay, $delay, webkit moz spec);
+    @include prefixer(animation-duration, $duration, webkit moz spec);
+    @include prefixer(animation-name, $animation, webkit moz spec);
+    @include prefixer(animation-fill-mode, $fillmode, webkit moz spec);
+    @include prefixer(animation-direction, $direction, webkit moz spec);
+    @include prefixer(animation-timing-function, $timing, webkit moz spec);
+    @include prefixer(animation-iteration-count, $iteration, webkit moz spec);
+
+}
+
+@mixin animation-delay($times...) {
+    @include prefixer(animation-delay, $times, webkit moz spec);
+}
+
+/* Transform
+  ========================================================================== */
+@mixin transform($property: none) {
+    /// none | <transform-function>
+    @include prefixer(transform, $property, webkit moz ms o spec);
+}
+
+@mixin transform-origin($axes: 50%) {
+    /// x-axis - left | center | right  | length | %
+    /// y-axis - top  | center | bottom | length | %
+    /// z-axis -                          length
+    @include prefixer(transform-origin, $axes, webkit moz ms o spec);
+}
+
+@mixin transform-style($style: flat) {
+    @include prefixer(transform-style, $style, webkit moz ms o spec);
+}
+
+/* Transitions
+  ========================================================================== */
+
+/// Shorthand mixin. Supports multiple parentheses-deliminated values for each variable.
+/// Example: @include transition (all 2s ease-in-out);
+///          @include transition (opacity 1s ease-in 2s, width 2s ease-out);
+///          @include transition-property (transform, opacity);
+
+@mixin transition($properties...) {
+
+    /// Fix for vendor-prefix transform property
+    $needs-prefixes: false;
+    $webkit: ();
+    $moz: ();
+    $spec: ();
+
+    /// Create lists for vendor-prefixed transform
+    @each $list in $properties {
+        @if nth($list, 1) == "transform" {
+            $needs-prefixes: true;
+            $list1: -webkit-transform;
+            $list2: -moz-transform;
+            $list3: ();
+
+            @each $var in $list {
+                $list3: join($list3, $var);
+
+                @if $var != "transform" {
+                    $list1: join($list1, $var);
+                    $list2: join($list2, $var);
+                }
+            }
+
+            $webkit: append($webkit, $list1);
+            $moz:    append($moz,    $list2);
+            $spec:   append($spec,   $list3);
+        } @else {
+            $webkit: append($webkit, $list, comma);
+            $moz:    append($moz,    $list, comma);
+            $spec:   append($spec,   $list, comma);
+        }
+    }
+
+    @if $needs-prefixes {
+        -webkit-transition: $webkit;
+        -moz-transition: $moz;
+        transition: $spec;
+    } @else {
+        @if length($properties) >= 1 {
+            @include prefixer(transition, $properties, webkit moz spec);
+        } @else {
+            $properties: all 0.15s ease-out 0s;
+            @include prefixer(transition, $properties, webkit moz spec);
+        }
+    }
+}
+
+@mixin transition-property($properties...) {
+    -webkit-transition-property: transition-property-names($properties, "webkit");
+       -moz-transition-property: transition-property-names($properties, "moz");
+            transition-property: transition-property-names($properties, false);
+}
+
+@mixin transition-duration($times...) {
+    @include prefixer(transition-duration, $times, webkit moz spec);
+}
+
+@mixin transition-timing-function($motions...) {
+    /// ease | linear | ease-in | ease-out | ease-in-out | cubic-bezier()
+    @include prefixer(transition-timing-function, $motions, webkit moz spec);
+}
+
+@mixin transition-delay($times...) {
+    @include prefixer(transition-delay, $times, webkit moz spec);
+}
+
+/* User Select
+   ========================================================================== */
+@mixin user-select($value: none) {
+    @include prefixer(user-select, $value, webkit moz ms spec);
+}
+
+/* Responsive Breakpoints
+   ========================================================================== */
+@mixin breakpoint($point, $arg: min-width) {
+    @if $point == ie {
+        @media screen and ($arg:0\0) { @content; }
+        @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { @content; }
+    } @else {
+        @media all and ($arg: $point) { @content; }
+    }
+}
+
+@mixin breakpoint-multiple($point1: null, $arg1: min-width, $point2: null, $arg2: min-width) {
+    @media all and ($arg1: $point1) and ($arg2: $point2) { @content; }
+}
+
+/* Placeholder
+  ========================================================================== */
+
+@mixin placeholder-color($color){
+  &.placeholder{
+    color: $color;
+  }
+
+  &:-moz-placeholder{
+    color: $color;
+  }
+
+  &::-webkit-input-placeholder{
+    color: $color;
+  }
+
+  &:-ms-input-placeholder{
+    color: $color;
+  }
+}
+
+/// Given the location of a webfont, will generate a font-face declaration with multiple file formats.
+/// @param {String} $font-name - Font family name
+/// @param {String} $file-name - File name (no extension)
+/// @param {String | Number} $weight [normal] - Font weight
+/// @param {String} $style [normal] - Font style
+/// @include font-face(Samplinal, fonts/Samplinal, 500, normal, eot woff2 woff);
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff ttf svg) {
+    $src: null;
+
+    $extmods: (
+        eot: "?",
+        svg: "#" + str-replace($name, " ", "_")
+    );
+
+    $formats: (
+        otf: "opentype",
+        ttf: "truetype"
+    );
+
+    @each $ext in $exts {
+        $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+        $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+        $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+    }
+
+    @font-face {
+        font-family: quote($name);
+        font-style: $style;
+        font-weight: $weight;
+        src: $src;
+    }
+}
+
+// Mixin import Google Fonts
+// $font-p: Kavoon;
+// $font-s: Wendy One;
+// $font-t: Bonbon;
+// @include google-font($font-p, $font-s, $font-t);
+
+@mixin google-font($fonts...) {
+  $url: "http://fonts.googleapis.com/css?family=";
+  $nb: 0;
+
+  @each $font-name in $fonts {
+    $nb: $nb + 1;
+    $nb-word: 0;
+
+    @each $word in $font-name {
+      $nb-word: $nb-word + 1;
+      $url: $url + $word;
+
+      @if $nb-word < length($font-name) {
+        $url: $url + "+";
+      }
+    }
+
+    @if $nb < length($fonts) {
+       $url: $url + "|";
+    }
+  }
+
+  @import url(#{$url});
+}
+
+// Mixin REM
+
+
+@mixin rem-baseline($zoom: 100%) {
+  font-size: $zoom / 16px * $rem-baseline;
+}
+
+/*****
+@include rem(font-size, 24px); // Simple
+@include rem(border-bottom, 1px solid black); // Shorthand
+@include rem(box-shadow, 0 0 2px #ccc, inset 0 0 5px #eee); // Multiple values
+// Map support (Sass 3.3+)
+@include rem((
+margin: 20px 1rem,
+padding: 10px
+));
+******/
+@mixin rem($properties, $values...) {
+  @if type-of($properties) == "map" {
+    @each $property in map-keys($properties) {
+      @include rem($property, map-get($properties, $property));
+    }
+  } @else {
+    @each $property in $properties {
+      @if $rem-fallback or $rem-px-only {
+        #{$property}: rem-convert(px, $values...);
+      }
+      @if not $rem-px-only {
+        #{$property}: rem-convert(rem, $values...);
+      }
+    }
+  }
+}
+
+// Mixin font
+// @include font(14px, 20px, 400, $font-opensans);
+@mixin font($size: 14px, $lineheight: 20px, $weight: 400, $fontfamily: $font-opensans) {
+  @include rem(font-size, $size);
+  @include rem(line-height, $lineheight);
+  font-weight: $weight;
+  font-family: $fontfamily;
+}
+
+/* Opacity
+  ========================================================================== */
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity * 100})";
+}
+
+//Mixin Filter
+//@include filter(grayscale, 100%);
+// Filters: blur(px), brightness(%), contrast(%), grayscale(%), sepia(%), saturate(%), invert(%)
+@mixin filter($type, $value) {
+    -webkit-filter: #{"#{$type}(#{$value})"};
+    -moz-filter: #{"#{$type}(#{$value})"};
+    filter: #{"#{$type}(#{$value})"};
+}
+
+/* Grayscale image
+  ========================================================================== */
+@mixin grayscale($value) {
+    -webkit-filter: #{"grayscale(#{$value})"};
+    -moz-filter: #{"grayscale(#{$value})"};
+    filter:#{"grayscale(#{$value})"};
+}
+
+/// @example scss - Usage
+///     @include position(absolute, 10px, null, null, 10px, 9999);
+@mixin position($position, $top, $right, $bottom, $left, $z-index: false) {
+    @if $position { position: $position; }
+    @if $top { top: $top; }
+    @if $right { right: $right; }
+    @if $bottom { bottom: $bottom; }
+    @if $left { left: $left; }
+    @if $z-index { z-index: $z-index; }
+}
+
+@mixin margin-auto() {
+  margin-left: auto;
+  margin-right: auto;
+}
+/// Background Mixin
+// Example: @include background('images/img.jpg', cover, no-repeat, center, fixed);
+@mixin background($url: null, $size: null, $repeat: null, $position: null, $attachment: null) {
+    background-image: url($url);
+    background-size: $size;
+    background-repeat: $repeat;
+    background-position: $position;
+    background-attachment: $attachment;
+}
+
+/// Mixin printing a linear-gradient
+/// @include linear-gradient(#31B7D7, #EDAC7D);
+/// @include linear-gradient(to right, #E47D7D 0%, #C195D3 50%, #4FB4E8 100%);
+@mixin linear-gradient($direction, $color-stops...) {
+  background: nth(nth($color-stops, 1), 1);
+  background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
+  background: linear-gradient($direction, $color-stops);
+}
+
+/// Truncates text and adds an ellipsis to represent overflow.
+/// @example scss - Usage
+///   .element {
+///     @include ellipsis(100%, 3);
+///   }
+@mixin ellipsis($width: 100%, $lines: 3) {
+    display: block;
+    display: -webkit-box;
+    max-width: $width;
+    height: 60px;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/// @example scss - Usage
+///   .first-element {
+///     @include size(2em);
+///   }
+///
+///   .second-element {
+///     @include size(auto 10em);
+///   }
+
+@mixin size($value) {
+  $width: nth($value, 1);
+  $height: $width;
+
+  @if length($value) > 1 {
+    $height: nth($value, 2);
+  }
+
+  height: $height;
+  width: $width;
+
+}
+// Border radius
+@mixin border-radius($radius: 2px) {
+    @include prefixer(border-radius, $radius, webkit ms spec);
+    @include prefixer(background-clip, padding-box, webkit moz);
+}
+// Box shadow
+// @include box-shadow(3px, 3px, 6px, rgba(0, 0, 0, 0.5));
+
+@mixin box-shadow($top, $left, $blur, $color, $inset:"") {
+    -webkit-box-shadow:$top $left $blur $color #{$inset};
+    -moz-box-shadow:$top $left $blur $color #{$inset};
+    box-shadow:$top $left $blur $color #{$inset};
+}
+
+// Text shadow
+// @include text-shadow(3px, 3px, 6px, rgba(0, 0, 0, 0.5));
+
+@mixin text-shadow($top, $left, $blur, $color) {
+    -webkit-text-shadow:$top $left $blur $color;
+    -moz-text-shadow:$top $left $blur $color;
+    text-shadow:$top $left $blur $color;
+}
+
+/* BEM Mixin
+  ========================================================================== */
+
+/// Block
+@mixin block($name) {
+    .#{$name} {
+        @content;
+    }
+}
+/// Element
+@mixin element($element) {
+    &__#{$element} {
+        @content;
+    }
+}
+/// Modifier
+@mixin modifier($modifier) {
+    &--#{$modifier} {
+        @content;
+    }
+}
+
+/* ========================================================================== */
+// Grid Mixin
+// $wmp -> Width mobile portrait
+// $wml -> Width mobile landscape
+// $wtp -> Width tablet portrait
+// $wtl -> Width tablet landscape
+// $screen -> Width desktop
+// @include grid(10px, 100%, 50%, 33.3333%, 25%, 20%);
+@mixin grid($margin: 10px, $wmp: 100%, $wml: 50%, $wtp: 33.3333%, $wtl: 25%, $screen: 20%) {
+    position: relative;
+    margin: $margin;
+    width: calc(#{$wmp} - (#{$margin}*2));
+    @include breakpoint($mobile) {
+        width: calc(#{$wml} - (#{$margin}*2));
+    }
+    @include breakpoint($tablet-portrait) {
+        width: calc(#{$wtp} - (#{$margin}*2));
+    }
+    @include breakpoint($tablet-landscape) {
+        width: calc(#{$wtl} - (#{$margin}*2));
+    }
+    @include breakpoint($medium) {
+        width: calc(#{$screen} - (#{$margin}*2));
+    }
+}
+
+@mixin container($max-width: $medium) {
+
+    [class*="-container"] {
+        margin: 0 auto;
+        max-width: $max-width;
+        position: relative;
+        width: 100%;
+        @content;
+    }
+
+}

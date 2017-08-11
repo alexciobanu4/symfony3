@@ -1,0 +1,171 @@
+/* ==========================================================================
+   Home :: Global
+   ========================================================================== */
+
+.main-home {
+    @include flexy(row, wrap, space-between, center);
+    .main-nav {
+        width: 100%;
+        z-index: 9999;
+        &__toggle {
+            position: fixed;
+            right: 60px;
+            top: calc(50% - 20px);
+            &.close {
+                right: 70px !important;
+            }
+        }
+        label {
+            &.hide-menu {
+                display: none;
+                cursor: pointer;
+                border-bottom: $color-gray-9 1px solid;
+            }
+        }
+    }
+}
+
+#menustate:checked ~ .main-nav,
+#menustate:target ~ .main-nav {
+    label {
+        &.hide-menu {
+            @include position(fixed, 30px, 30px, null, null, 9999);
+            border-bottom: none;
+            color: $color-gray-9;
+            display: block;
+            @include breakpoint($tablet-portrait) {
+                display: none;
+            }
+        }
+    }
+}
+
+.projects {
+    @include size(100%);
+}
+
+.slide {
+    @include position(absolute, 0, null, null, 0);
+    @include size(100% 0);
+    @include transition(height 0.9s ease 0s);
+    @include flexy(row, wrap, center, flex-end);
+    overflow: hidden;
+    background-color: $color-gray-e;
+    background-size: auto 84% !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed;
+    &:nth-child(1) {
+        z-index: 10;
+    }
+    &:nth-child(2) {
+        z-index: 9;
+    }
+    &:nth-child(3) {
+        z-index: 8;
+    }
+    &:nth-child(4) {
+        z-index: 7;
+    }
+    @include breakpoint($mobile) {
+        @include flexy(row, wrap, center, center);
+        background-size: auto 130% !important;
+    }
+    @include breakpoint($tablet-portrait) {
+        background-size: auto 100% !important;
+    }
+    @include breakpoint($tablet-landscape) {
+        background-size: auto 120% !important;
+    }
+
+    &__text {
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+        text-align: center;
+        @include breakpoint($mobile) {
+            padding-bottom: 0px;
+            text-align: left;
+        }
+        h3 {
+            @include transition(opacity 0.5s ease 0s);
+            @include opacity(0);
+            position: relative;
+            font: 400 20px/30px $font-regular;
+            color: $color-gray-6;
+            @include breakpoint($mobile) {
+                font: 400 20px/28px $font-regular;
+                color: $color-white;
+                text-shadow: 0px 0 10px rgba(0,0,0,0.5);
+            }
+            @include breakpoint($tablet-portrait) {
+                font: 400 4vh/5vh $font-regular;
+                width: 100%;
+            }
+            @include breakpoint($tablet-landscape) {
+                font: 400 5vh/6vh $font-regular;
+                width: 100%;
+            }
+
+        }
+        @include breakpoint($mobile) {
+            margin-top: 0;
+        }
+    }
+    &.active {
+        height: 100%;
+        h3 {
+            @include opacity(1);
+        }
+    }
+}
+
+.projects {
+    nav {
+        position: absolute;
+        left: $padding-small;
+        bottom: 0;
+        @include transform(translateY(-50%));
+        width: 18px;
+        z-index: 100;
+        @include breakpoint($mobile) {
+            left: $padding;
+            top: 50%;
+            bottom: inherit;
+        }
+        li {
+            margin-bottom: 20px;
+            cursor: pointer;
+            display: inline-block;
+            background-color: $color-gray-d;
+            border: 2px solid transparent;
+            @include size(8px);
+            border-radius: 50%;
+            margin: 0 3px;
+            position: relative;
+            &.current {
+                background-color: transparent;
+                border: $color-gray-9 2px solid;
+            }
+        }
+    }
+    button {
+        cursor: pointer;
+        @include position(absolute, null, null, 0, 0, 100);
+        font-size: 25px;
+        background: transparent;
+        border: 0;
+        outline: 0;
+        color: $color-gray-9;
+        padding-left: $padding-small;
+        padding-bottom: $padding-small;
+        display: none;
+        @include breakpoint($mobile) {
+            display: block;
+            padding-left: $padding;
+            padding-bottom: $padding;
+        }
+    }
+}
+
+

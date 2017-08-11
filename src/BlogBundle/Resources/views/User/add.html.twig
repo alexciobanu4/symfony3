@@ -1,0 +1,38 @@
+{% extends "BlogBundle::layout.html.twig"%}
+{% block content %}
+    
+    <div class="title">
+        <div class="title-container">
+            <h1>Alta de usuario</h1>
+        </div>
+    </div>
+    <div class="form">
+        <div class="form-container">
+            {% for message in app.session.flashbag().get('status') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+            {{form_start(form, {'action':'', 'method':'POST', 'attr': {'novalidate': 'novalidate'}})}}
+            <div class="form__group">
+                <label>Nombre: </label>
+                {{form_widget(form.name)}}
+            </div>
+            <div class="form__group">
+                <label>Apellidos: </label>
+                {{form_widget(form.surname)}}
+            </div>
+            <div class="form__group">
+                <label>Email: </label>
+                {{form_widget(form.email)}}
+            </div>
+            <div class="form__group">
+                {{form_widget(form.password)}}
+            </div>
+            <div class="form__group">
+                <label>Rol: </label>
+                {{form_widget(form.role)}}
+            </div>
+            {{form_end(form)}}
+        </div>
+    </div>
+
+{% endblock %}

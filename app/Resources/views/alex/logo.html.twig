@@ -1,0 +1,17 @@
+{% extends "layout.html.twig" %}
+
+{% block header %}
+    {{ include('common/menu.html.twig') }}
+{% endblock %}
+
+{% block container %}
+	<hr>
+	<h1>{{titulo}}</h1>
+	<br>
+    <img src="{{ asset('bundles/framework/images/logo_symfony.png') }}">
+	<hr>
+{% endblock %}
+
+{% block footer %}
+    footer
+{% endblock %}

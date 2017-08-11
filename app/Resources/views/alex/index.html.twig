@@ -1,0 +1,68 @@
+{% extends "layout.html.twig" %}
+
+{% block header %}
+    {{ include('common/menu.html.twig') }}
+{% endblock %}
+
+{% block container %}
+	<hr>
+    <h1>{{texto|title}}</h1>
+	<br><br>
+	
+	{# Difinir una variable #}
+	{% set variable = "Hola" %}
+	{{variable}}
+	<hr>
+	{% if fruta.manzana starts with "g" %}
+		Manzana: {{fruta.manzana}}
+	{% endif %}
+	<hr>
+	{# Condicional si hay mas de 0 productos #}
+	{% if productos|length > 0 %}
+		<ul>
+			{# Bucle for para recorrer el array #}
+			{% for producto in productos|sort %}
+				<li>{{producto.producto}} - {{producto.precio}}€</li>
+			{% endfor %}			
+		</ul>
+	{% endif %}
+	<hr>
+	{# Include con una plantilla de un bundle #}
+	<h3>{{ include('AlexBundle:Default:index.html.twig') }}</h3>
+
+	<br>
+	{# Funciones max y min para sacar el numero mayor o menor de un array #}
+	{{ max([76,99,88]) }} - {{ min([76,99,88]) }}
+	<br>
+	{# Función para mostrar aleatoriamente algun objeto del array #}
+	Num. aleatorio: {{ random(1000) }} <br>
+	Palabra aleatoria: {{ random(["symfony","que tal","twig"]) }}
+	<br>
+	{# range - muestra un rango entre numeros #}
+	{% for i in range(0,10) %}
+		{{i}}<br>
+	{% endfor %}
+
+	<br><br>
+	{# Llamar a una función, en este caso para mostrar los productos en una tabla (|raw para pintar el html) #}
+	{{ generateTable(productos) |raw }}
+
+	<br>
+	{% set fecha = date() %}
+	{# Formateamos la fecha #}
+	{{ fecha|date("d/m/Y") }}
+
+	<br>
+	{% set texto = "hola," %}
+	{{ texto|trim(",") }}
+	<br>
+	{# Aplicamos filtros personalizados #}
+	{{ "cadena de texto"|addText|raw }}
+	<br>
+	{{ "Numero aleatorio: "|addRandomNumber|raw }}
+
+{% endblock %}
+
+{% block footer %}
+    footer
+{% endblock %}

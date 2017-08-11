@@ -1,0 +1,56 @@
+{% extends "BlogBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="title">
+        <div class="title-container">
+            <h1>Editar entrada: {{entry.title}}</h1>
+        </div>
+    </div>
+    <div class="form">
+        <div class="form-container">
+            {{form_start(form, { 'enctype':'multipart/form-data' })}}
+
+            <div class="form__group">
+                <label>Titulo: </label>
+                {{form_widget(form.title)}}
+            </div>
+            <div class="form__group">
+                <label>Contenido: </label>
+                {{form_widget(form.content)}}
+            </div>
+            <div class="form__group">
+                <label>Estado: </label>
+                {{form_widget(form.status)}}
+            </div>
+            <div class="form__group">
+                <label>Categoria: </label>
+                {{form_widget(form.category)}}
+            </div>
+            <div class="form__group">
+                <label>Etiquetas</label>
+                {%set tags_clean = tags|trim(",")%}
+                {{form_widget(form.tags, {'value':tags_clean})}}
+            </div>
+            <div class="form__group">
+                <label>Usuario: </label>
+                {{form_widget(form.user)}}
+            </div>
+            <div class="form__group">
+                <label>Imagen: </label>
+                <img width="200" src="{{ asset("dist/uploads/"~entry.image)}}"/>
+                {{form_widget(form.image)}}
+            </div>
+            
+        {{form_end(form)}}
+        </div>
+    </div>
+
+     {{ tinymce_init() }}
+     <script>
+     function callback_tinymce_init(editor) {
+        // execute your best script ever
+    }
+     </script>
+{% endblock %}
+
+

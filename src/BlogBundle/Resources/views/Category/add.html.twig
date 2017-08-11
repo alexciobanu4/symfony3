@@ -1,0 +1,25 @@
+{% extends "BlogBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="title">
+        <div class="title-container">
+            <h1>Añadir categoria</h1>
+        </div>
+    </div>
+	<div class="form">
+        <div class="form-container">
+			{{form_start(form)}}
+			<div class="form__group">
+                <label>Nombre: </label>
+                {{form_widget(form.name)}}
+            </div>
+            <div class="form__group">
+                <label>Descripción: </label>
+                {{form_widget(form.description)}}
+            </div>
+       		{{form_end(form)}}
+        </div>
+    </div>
+{% endblock %}
+
+

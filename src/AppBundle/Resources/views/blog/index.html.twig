@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Blog:List{% endblock %}
+
+{% block body %}
+    <h2 class="page-header">Blog: List</h2>
+
+    <table class="table">
+        <thead> 
+            <tr> 
+                <th>#</th> 
+                <th>Post</th> 
+                <th>Due date</th> 
+                <th></th> 
+            </tr> 
+        </thead> 
+        <tbody> 
+            {% for todo in posts %}
+            <tr> 
+                <th scope="row">{{ todo.id }}</th> 
+                <td><img src="/web/uploads/{{ todo.image }}" width="100"></td> 
+                <td>{{ todo.titulo }}</td> 
+                <td>{{ todo.dueDate|date('F j, Y, g:i a') }}</td> 
+                <td>
+                    <a href="/web/blog/details/{{ todo.id }}" class="btn btn-success">View</a>
+                    <a href="/web/blog/edit/{{ todo.id }}" class="btn btn-default">Edit</a>
+                    <a href="/web/blog/delete/{{ todo.id }}" class="btn btn-danger">Delete</a>
+                </td> 
+            </tr> 
+            {% endfor %}
+        </tbody> 
+    </table>
+{% endblock %}

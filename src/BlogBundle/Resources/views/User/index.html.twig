@@ -1,0 +1,44 @@
+{% extends "BlogBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="title">
+        <div class="title-container">
+            <h1>Usuarios</h1>
+            <a href="{{path("blog_add_user")}}" class="listado--add">Añadir usuario</a>
+        </div>
+    </div>
+    <div class="listado">
+        <div class="listado-container">
+        
+        {% for message in app.session.flashbag().get('status') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Editar</th>
+            </tr>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.surname }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>
+                        <div class="viewmore">
+                            {% if (app.user.id is defined) %}
+                            <a href="{{path("blog_edit_user", {"id":user.id})}}" class="btn-edit">Editar</a>
+                            <a href="{{path("blog_delete_user", {"id":user.id})}}" class="btn-delete" onclick="return confirm('Confirmas el borrado?')">Eliminar</a>
+                            {% endif %}
+                        </div>   
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        </div>
+    </div>
+
+{% endblock %}

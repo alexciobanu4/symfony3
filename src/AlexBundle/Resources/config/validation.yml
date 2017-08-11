@@ -1,0 +1,17 @@
+AlexBundle\Entity\Usuarios:
+    properties:
+        name:
+            - NotBlank: {message: "El nombre es obligatorio"}
+            - Length:
+                min: 2
+                minMessage: "El nombre debe tener más de 2 caracteres"
+        surname:
+            - NotBlank: {message: "El apellido es obligatorio"}
+            - Length:
+                min: 2
+                minMessage: "El apellido debe tener más de 2 caracteres"
+        email:
+            - NotBlank: {message: "El email es obligatorio"}
+            - Email:
+                message: El email {{ value }} no es válido.
+                checkMX: true

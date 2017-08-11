@@ -1,0 +1,21 @@
+/* ==========================================================================
+   Buttons :: Global
+   ========================================================================== */
+[class^="button"],
+[class*=" button-"] {
+    background-color: $color-gray-e;
+    @include border-radius(45px);
+    color: $color-black-2;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    line-height: 45px;
+    padding: 0 30px;
+    text-align: center;
+    text-rendering: optimizelegibility;
+    text-transform: uppercase;
+    @include transition(all 0.1s ease-out 0s);
+    white-space: nowrap;
+}

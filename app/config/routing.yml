@@ -1,0 +1,15 @@
+blog:
+    resource: "@BlogBundle/Resources/config/routing.yml"
+    prefix:   /
+
+# alex:
+#     resource: "@AlexBundle/Resources/config/routing.yml"
+#     prefix:   /
+
+rutas:
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix: /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

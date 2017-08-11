@@ -1,0 +1,31 @@
+alex_homepage:
+    path:     /alex
+    defaults: { _controller: AlexBundle:Default:index }
+
+alex_logo:
+    path:     /alex/logo
+    defaults: { _controller: AlexBundle:Default:logo }
+
+usuarios_create:
+    path:     /usuarios/create
+    defaults: { _controller: AlexBundle:Usuarios:create }
+
+usuarios_list:
+    path:     /usuarios/list
+    defaults: { _controller: AlexBundle:Usuarios:list }
+
+usuarios_update:
+    path:     /usuarios/update/{id}/{name}/{surname}
+    defaults: { _controller: AlexBundle:Usuarios:update }
+
+usuarios_delete:
+    path:     /usuarios/delete/{id}
+    defaults: { _controller: AlexBundle:Usuarios:delete }
+
+usuarios_query:
+    path:     /usuarios/query/{param}
+    defaults: { _controller: AlexBundle:Usuarios:query }
+
+usuarios_form:
+    path:     /usuarios/form
+    defaults: { _controller: AlexBundle:Usuarios:form }

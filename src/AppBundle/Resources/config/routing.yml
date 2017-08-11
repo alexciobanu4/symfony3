@@ -1,0 +1,34 @@
+pruebas:
+    path: /pruebas/{lang}/{name}/{number}
+    defaults: {_controller: AppBundle:Pruebas:index, lang: es, name: Alex, number: 1}
+    methods: [GET]
+    requirements:
+      name: "[a-zA-Z]*"
+      number: \d+
+      lang: es|en|fr
+
+blog_list:
+    path: /blog
+    defaults: {_controller: AppBundle:Blog:index}
+
+blog_create:
+    path: /blog/create
+    defaults: {_controller: AppBundle:Blog:create}
+
+blog_edit:
+    path: /blog/edit/{id}
+    defaults: {_controller: AppBundle:Blog:edit}
+    requirements:
+        id: \d+
+
+blog_details:
+    path: /blog/details/{id}
+    defaults: {_controller: AppBundle:Blog:details}
+    requirements:
+        id: \d+
+
+blog_delete:
+    path: /blog/delete/{id}
+    defaults: {_controller: AppBundle:Blog:delete}
+    requirements:
+        id: \d+

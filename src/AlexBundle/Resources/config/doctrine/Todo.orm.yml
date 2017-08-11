@@ -1,0 +1,46 @@
+AlexBundle\Entity\Todo:
+    type: entity
+    table: todo
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        category:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        description:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        priority:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        dueDate:
+            type: datetime
+            nullable: false
+            column: due_date
+        createDate:
+            type: datetime
+            nullable: false
+            column: create_date
+    lifecycleCallbacks: {  }

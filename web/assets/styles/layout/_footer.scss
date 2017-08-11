@@ -1,0 +1,12 @@
+/* ==========================================================================
+   Footer :: Global
+   ========================================================================== */
+
+.footer {
+    padding: 30px;
+	width: 100%;
+	border-top: 1px solid $color-gray-c;
+    @include container {
+		@include flexy(row, wrap, space-between, center);
+    }
+}

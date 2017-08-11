@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {% block title %} Blog con Symfony3 {% endblock %}
+        </title>
+        <link href="{{ asset('dist/styles/main.css') }}" rel="stylesheet" />
+        <link href="{{ asset('favicon.ico') }}" rel="icon" />
+    </head>
+    <body>
+        <header class="header">
+            <div class="header-container">
+                <div class="header__logo">
+                    <a href="{{path("blog_homepage")}}">
+                        <img src="{{ asset("dist/uploads/logo.png")}}">
+                    </a>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="{{path("blog_homepage")}}">Entradas</a></li>
+                        <li><a href="{{path("blog_index_page")}}">Páginas</a></li>
+                        <li><a href="{{path("blog_index_category")}}">Categorías</a>
+                            <ul class="submenu">
+                                {% block menu %}{% endblock %}
+                            </ul>
+                        </li>
+                        <li><a href="{{path("blog_index_tag")}}">Etiquetas</a></li>
+                        <li><a href="{{path("blog_index_user")}}">Usuarios</a></li>
+                    </ul>
+                </nav>
+                <div class="header__top-right">
+                    <a href="{{path("blog_edit_user", {"id":app.user.id})}}">
+                        {% if app.user != null %}
+                            Hola <strong>{{app.user.name}} {{app.user.surname}}</strong> | <a href="{{path("logout")}}">Salir</a>
+                        {% else %}
+                            <a href="{{path("login")}}">Entrar</a> | <a href="{{path("blog_add_user")}}">Alta usuario</a>
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        </header>
+        <section class="content">
+            <div class="content-container">
+                {% block content %} Content default {% endblock %}
+            </div>
+        </section>
+        <footer class="footer">
+            <div class="footer-container">
+                Blog creado con Symfony 3
+            </div>
+        </footer>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    </body>
+</html>

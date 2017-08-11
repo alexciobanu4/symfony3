@@ -1,0 +1,68 @@
+{% extends "BlogBundle::layout.html.twig" %}
+
+{% block menu %}
+    {% include "BlogBundle:Category:menu.categories.html.twig" with {'categories': categories}  %}
+{% endblock %}
+
+{% block content %}
+    <div class="title">
+        <div class="title-container">
+            <h1>Entradas</h1><br>
+            <a href="{{path("blog_add_entry")}}" class="listado--add">Añadir entrada</a>
+        </div>
+    </div>
+    
+    {% for message in app.session.flashbag().get('status') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+<div class="entradas">
+
+    {% for entry in entries %}
+        <figure class="entrada" animacion="zoomIn">
+            <div class="imagen">
+                {% set titulo = entry.title|replace({' ': "-", "," : "-", "!" : ""}) %}
+
+                <a href="{{path("blog_view_entry",{"id":entry.id, "title":titulo|lower})}}">
+                    <div class="imagen__image" style="background-image: url({{ asset("dist/uploads/"~entry.image)}});"></div>
+                    <h3>{{entry.title}}</h3>
+                </a>
+            </div>
+            <figcaption>
+                <div class="description">
+
+                    {{ entry.content|striptags|slice(0, 100) }}...
+                  
+                </div>
+                <div class="viewmore">
+                    {% if (app.user.id is defined) %}
+                    <a href="{{path("blog_edit_entry",{"id":entry.id})}}" class="viewmore--edit">{% trans %}btn_edit{% endtrans %}</a>
+                    <a href="{{path("blog_delete_entry",{"id":entry.id})}}" class="viewmore--delete" onclick="return confirm('Confirmas el borrado?')">{% trans %}btn_del{% endtrans %}</a>
+                    {% endif %}
+                </div>
+            </figcaption>
+        </figure>
+    {% endfor %}
+</div>
+
+<ul class="pagination">
+    {% if(page == 1)%}
+        
+    {% else %}
+      {% set page = page - 1 %}
+    {% endif %}
+    
+    <li><a href="{{ path('blog_homepage', {"page":page}) }}">&laquo;</a></li>
+    {% for i in 1..pagesCount %}
+        <li><a href="{{ path('blog_homepage', {"page":i}) }}">{{i}}</a></li>
+    {% endfor %}
+    
+    {% if(page_m == pagesCount) %}
+        
+    {% else %}
+      {% set page_m = page_m + 1 %}
+    {% endif %}
+    <li><a href="{{ path('blog_homepage', {"page":page_m}) }}">&raquo;</a></li>
+</ul>
+
+{% endblock %}

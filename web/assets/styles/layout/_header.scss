@@ -1,0 +1,61 @@
+/* ==========================================================================
+   Header :: Global
+   ========================================================================== */
+.header {
+	padding: 30px;
+	width: 100%;
+	border-bottom: 1px solid $color-gray-c;
+    @include container {
+		@include flexy(row, wrap, space-between, center);
+    }
+    &__logo {
+		img {
+			width: 100%;
+			max-width: 200px;
+		}
+    }
+    .main-nav {
+    	position: relative;
+		ul {
+			@include flexy(row, wrap, space-between, center);
+			&.submenu {
+				@include position(absolute, 25px, null, null, auto);
+                width: 200px;
+				visibility: hidden;
+                @include opacity(0);
+                display: block;
+                @include transition(all 0.5s ease 0s);
+                border: $color-gray-c 1px solid;
+                li {
+                	display: block;
+                    line-height: 15px;
+                    padding: 5px 5px;
+                    @include transition(all 0.5s ease 0s);
+                    background: $color-white;
+                }
+			}
+		}
+		li {
+			display: inline-block;
+			padding: 0 10px;
+			ul {
+				display: none;
+			}
+			a {
+				@include underline-from-center;
+			}
+			&:hover {
+				.submenu {
+					@include opacity(1);
+                    visibility: visible;
+                    display: block;
+				}
+			}
+		}
+    }
+    &__top-right {
+
+    }
+}
+
+

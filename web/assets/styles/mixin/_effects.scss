@@ -1,0 +1,258 @@
+// As is often the case, some devices/browsers need additional code to get CSS to work
+// in the most desired way. These mixins are used to quickly drop in hacks for each element
+// Find out more here: https://github.com/IanLunn/Hover/wiki/Hacks-Explained
+
+@mixin hardwareAccel() {
+    // Improve performance on mobile/tablet devices
+    // Perspective reduces blurryness of text in Chrome
+    @include prefixer(transform, perspective(1px) translateZ(0), webkit moz spec);
+}
+
+@mixin improveAntiAlias() {
+    // Improve aliasing on mobile/tablet devices
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+
+@mixin forceBlockLevel() {
+    // Transforms need to be block-level to work
+    display: inline-block;
+    vertical-align: middle;
+}
+
+@mixin hacks() {
+    @include forceBlockLevel();
+    @include hardwareAccel();
+    @include improveAntiAlias();
+}
+
+/* Rectangle In */
+@mixin rectangle-in {
+    @include hacks();
+    position: relative;
+    background: $color-white;
+    @include transition(all 0.3s ease 0s);
+    &:before {
+        content: "";
+        @include position(absolute, 0, 0, 0, 0, -1);
+        background: $color-white;
+        @include transform(scale(1));
+        @include transition(all 0.3s ease-out 0s);
+    }
+    &:hover,
+    &:focus,
+    &:active {
+        color: $color-white;
+        background: $color-black;
+        &:before {
+            @include transform(scale(0));
+        }
+    }
+}
+
+/* Rectangle Out */
+@mixin rectangle-out {
+    @include hacks();
+    position: relative;
+    background: $color-blue;
+    @include transition(all 0.3s ease 0s);
+    &:before {
+        content: "";
+        @include position(absolute, 0, 0, 0, 0, -1);
+        background: $color-white;
+        @include transform(scale(0));
+        @include transition(all 0.3s ease-out 0s);
+    }
+    &:hover,
+    &:focus,
+    &:active {
+        color: $color-black;
+        background: $color-white;
+        &:before {
+            @include transform(scale(1));
+        }
+    }
+}
+
+/* Underline From Center */
+@mixin underline-from-center {
+    @include hacks();
+    position: relative;
+    &:before {
+        content: "";
+        @include position(absolute, 25px, 50%, null, 50%, 10);
+        background: $color-black;
+        height: 2px;
+        @include transition(all 0.3s ease 0s);
+    }
+    &:hover,
+    &:focus,
+    &:active {
+        &:before {
+            left: 0;
+            right: 0;
+        }
+    }
+}
+
+/* Underline From Left */
+@mixin underline-from-left {
+    @include hacks();
+    position: relative;
+    &:before {
+        content: "";
+        @include position(absolute, 25px, 100%, null, 0, 10);
+        background: $color-white;
+        height: 2px;
+        @include transition(all 0.3s ease-out 0s);
+    }
+    &:hover,
+    &:focus,
+    &:active {
+        &:before {
+            right: 0;
+        }
+    }
+}
+
+/* Underline Top & Bottom */
+@mixin underline-top-bottom {
+    @include hacks();
+    position: relative;
+    &:before {
+        content: "";
+        @include position(absolute, -7px, 0, null, 100%, 10);
+        background: $color-white;
+        height: 2px;
+        @include transition(all 0.3s ease-out 0s);
+    }
+    &:after {
+        content: "";
+        @include position(absolute, 25px, 100%, null, 0, 10);
+        background: $color-white;
+        height: 2px;
+        @include transition(all 0.3s ease-out 0s);
+    }
+    &:hover,
+    &:focus,
+    &:active {
+        &:before {
+            left: 0;
+        }
+        &:after {
+            right: 0;
+        }
+    }
+}
+
+/* Ripple Out */
+@include keyframe(ripple-out) {
+    100% {
+        top: -(6px + 6px);
+        right: -(6px + 6px);
+        bottom: -(6px + 6px);
+        left: -(6px + 6px);
+        opacity: 0;
+    }
+}
+
+@mixin ripple-out {
+    $outerBorderWidth: 6px;
+    $innerBorderWidth: 6px;
+    @include hacks();
+    position: relative;
+    &:before {
+        content: '';
+        @include position(absolute, 0, 0, 0, 0);
+        border: $color-gray-a solid $outerBorderWidth;
+        @include transition(all 1s ease 0s);
+    }
+    &:hover,
+    &:focus,
+    &:active {
+        &:before {
+            @include animation(0s, 1s, ease, ripple-out);
+        }
+    }
+}
+
+/* Glow */
+@mixin glow {
+    @include hacks();
+    @include transition(all 0.4s ease 0s);
+    &:hover,
+    &:focus,
+    &:active {
+        @include box-shadow(0, 0, 8px, rgba(0, 0, 0, 0.6));
+    }
+}
+
+/* Grow */
+@mixin grow {
+    @include hacks();
+    @include transition(all 0.3s ease 0s);
+    &:hover,
+    &:focus,
+    &:active {
+        @include transform(scale(1.1));
+    }
+}
+
+/* Grow Shadow */
+@mixin grow-shadow {
+    @include hacks();
+    @include transition(all 0.3s ease 0s);
+    &:hover,
+    &:focus,
+    &:active {
+        @include box-shadow(0, 10px, 10px, -10px, rgba(0, 0, 0, 0.5));
+        @include transform(scale(1.05));
+    }
+}
+
+/* Sweep To Right */
+@mixin sweep-to-right {
+    @include hacks();
+    position: relative;
+    @include transition(all 0.3s ease 0s);
+    &:before {
+        content: "";
+        @include position(absolute, 0, 0, 0, 0, -1);
+        background: $color-black;
+        @include transform(scaleX(0));
+        @include transform-origin(0 50%);
+        @include transition(all 0.3s ease-out 0s);
+    }
+    &:hover,
+    &:focus,
+    &:active {
+        color: $color-white;
+        &:before {
+            @include transform(scaleX(1));
+        }
+    }
+}
+
+/* Shutter Out Horizontal */
+@mixin shutter-out-horizontal {
+    @include hacks();
+    position: relative;
+    background: $color-white;
+    @include transition(all 0.3s ease 0s);
+    &:before {
+        content: "";
+        @include position(absolute, 0, 0, 0, 0, -1);
+        background: $color-black;
+        @include transform(scaleX(0));
+        @include transform-origin(50%);
+        @include transition(all 0.3s ease-out 0s);
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: $color-white;
+        &:before {
+            @include transform(scaleX(1));
+        }
+    }
+}

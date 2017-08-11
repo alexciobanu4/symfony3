@@ -1,0 +1,19 @@
+{% extends "layout.html.twig" %}
+
+{% block header %}
+    {{ include('common/menu.html.twig') }}
+{% endblock %}
+
+{% block container %}
+	<hr>
+    <h1>Formulario de alta</h1>
+	<br><br>
+	{% if status != null and data != null %}
+		<h3>{{status}}</h3>
+		<h3>{{dump(data)}}</h3>
+	{% endif %}
+	{{form_start(form, {'action':'', 'method':'POST', 'attr': {'novalidate': 'novalidate'}})}}
+		
+	{{form_end(form)}}
+
+{% endblock %}

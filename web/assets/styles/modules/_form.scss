@@ -1,0 +1,45 @@
+/* ==========================================================================
+   Input :: Global
+   ========================================================================== */
+
+input:not([type="submit"]) {
+    background-color: $color-white;
+    border: 1px solid $color-gray-a;
+    color: $color-black;
+    @include rem(padding, 10px);
+    @include size(100% 45px);
+    @include transition(all 0.7s ease 0s);
+    @include placeholder-color($color-gray-b);
+    &:hover {
+        border: 1px solid $color-blue;
+        @include placeholder-color($color-gray-a);
+    }
+}
+input[type="submit"],
+button[type="submit"] {
+    @include rectangle-out;
+    @include glow;
+    @include rem(margin, 5px auto);
+    @include rem(padding, 10px 25px);
+    background: $color-green;
+    color: $color-white;
+    padding: 5px 8px;
+    border: none;
+}
+
+textarea {
+    background-color: $color-white;
+    border: 1px solid $color-gray-a;
+    color: $color-black;
+    @include rem(padding, 10px);
+    @include size(100% 50px);
+}
+
+label {
+    @include font(18px, 24px, 400, $font-lato);
+    display: block;
+}
+
+.error {
+    color: $color-red;
+}

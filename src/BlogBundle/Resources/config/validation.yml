@@ -1,0 +1,30 @@
+BlogBundle\Entity\Entry:
+    properties:
+        title:
+            - NotBlank: {message: "El titulo no puede estar vacío"}
+            - Length:
+                min: 2
+                minMessage: "El titulo tiene que tener mas de 2 caracteres"
+        content:
+            - NotBlank: {message: "El texto no puede estar vacío"}
+
+BlogBundle\Entity\Tag:
+    properties:
+        name:
+            - NotBlank: {message: "El nombre no puede estar vacío"}
+            - Length:
+                min: 2
+                minMessage: "El nombre tiene que tener mas de 2 caracteres"
+
+BlogBundle\Entity\User:
+    properties:
+        email:
+            - NotBlank: {message: "El email no puede estar vacío"}
+            - Email:
+                message: El email {{ value }} no es válido.
+                checkMX: true
+        password:
+            - NotBlank: {message: "La contraseña no puede estar vacía"}
+            - Length:
+                min: 2
+                minMessage: "La contraseña debe que tener mas de 5 caracteres"

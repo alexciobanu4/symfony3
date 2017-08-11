@@ -1,0 +1,38 @@
+{% extends "BlogBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="title">
+        <div class="title-container">
+            <h1>Páginas</h1>
+            <a href="{{path("blog_add_page")}}" class="listado--add">Añadir página</a>
+        </div>
+    </div>
+    
+    <div class="listado">
+        <div class="listado-container">
+        
+        {% for message in app.session.flashbag().get('status') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <table class="table table-bordered">
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+            {% for page in pages %}
+                <tr>
+                    <td>{{ page.title }}</td>
+                    <td>{{ page.description|raw }}</td>
+                    <td>
+                       <a href="{{path("blog_edit_page", {"id":page.id})}}" class="btn btn-warning">Editar</a>
+                    </td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </table>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,158 @@
+
+.title {
+    padding: 0px 30px 30px;
+    @include container {
+        @include flexy(row, wrap, space-between);
+    }
+}
+
+.entradas {
+    @include flexy(row, wrap, null, center);
+}
+
+.entrada {
+    @include grid(20px, 100%, 50%, 33.3333%, 33.3333%, 33.3333%);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.30);
+    .imagen {
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        background: $color-black;
+        &__image {
+            background-size: cover;
+            background-position: center;
+            @include rem(height, 300px);
+            cursor: pointer;
+            @include transition(all 0.3s ease 0s);
+            label {
+                display: block;
+                @include size(100%);
+            }
+        }
+        h3 {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-transform: uppercase;
+            @include rem(padding, 10px 25px);
+            margin: 0;
+            font-weight: 400;
+            background: black-bg(0.7);
+            color: $color-white;
+            cursor: pointer;
+            @include transition(all 0.3s ease 0s);
+            span {
+                font-weight: 800;
+                display: block;
+            }
+        }
+    }
+    figcaption {
+        background: $color-white;
+        @include rem(padding, 20px 20px 60px);
+        overflow: hidden;
+        position: relative;
+        @include transition(all 0.3s ease 0s);
+        .description {
+            @include font(14px, 20px, 400, $font-lato);
+            @include ellipsis;
+
+        }
+        .viewmore {
+            @include position(absolute, null, 25px, 20px, null);
+            label {
+                cursor: pointer;
+                color: $color-blue;
+                @include transition(all 0.3s ease 0s);
+                &:hover {
+                    color: $color-black;
+                }
+            }
+            &--edit {
+                background: $color-green;
+            }
+            &--delete {
+                background: $color-red;
+            }
+            &--edit,
+            &--delete {
+                color: $color-white;
+                padding: 5px 8px;
+            }
+        }
+    }
+    &:hover {
+        .imagen__image {
+            @include transform(scale(1.08) rotate(-2deg));
+            @include opacity(0.6);
+        }
+        h3 {
+            @include rem(padding, 15px 25px);
+        }
+        figcaption {
+            //background: $color-blue;
+            //color: $color-white;
+        }
+    }
+}
+
+.form {
+    @include container {
+        width: inherit;
+    }
+    padding: 0 30px;
+    &__group {
+        margin-bottom: 20px;
+    }
+    .mce-edit-area, iframe {
+        height: 400px !important;
+    }
+    ul {
+        color: $color-red;
+        font-weight: 700;
+        padding: 5px 0;
+    }
+}
+
+.listado {
+    @include container {
+        width: inherit;
+    }
+    padding: 0 30px;
+    &--add {
+        background: $color-green;
+        color: $color-white;
+        padding: 5px 8px;
+        height: 30px;
+        @include glow;
+    }
+    table {
+        width: 100%;
+        margin: 30px 0;
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid $color-gray-c;
+            a {
+                &.btn-edit {
+                    background: $color-green;
+                    color: $color-white;
+                    padding: 5px 8px;
+                }
+                &.btn-delete {
+                    background: $color-red;
+                    color: $color-white;
+                    padding: 5px 8px;
+                }
+            }
+        }
+    }
+}
+
+.alert {
+    width: 100%;
+    padding: 5px;
+    background: $color-twitter;
+    color: $color-white;
+    margin-bottom: 20px;
+}

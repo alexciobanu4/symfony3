@@ -1,0 +1,24 @@
+{% extends "BlogBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="title">
+        <div class="title-container">
+            <h1>{{entry.title}}</h1>
+        </div>
+    </div>
+
+    <img src="{{ asset("dist/uploads/"~entry.image)}}" style="width: 100%;" />
+    <br>
+    {{ entry.content|raw }}
+    <br>
+    <p>Categoria: {{entry.category.name}}</p>
+    <p>Autor: {{entry.user.name}}</p>
+    <p>Tags: 
+        {% for et in entry.entryTag %}
+            <span class="label label-default">{{et.tag.name}}</span>
+        {% endfor %}
+    </p>
+   
+{% endblock %}
+
+

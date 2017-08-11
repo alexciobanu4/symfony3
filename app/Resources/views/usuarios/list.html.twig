@@ -1,0 +1,35 @@
+{% extends "layout.html.twig" %}
+
+{% block header %}
+    {{ include('common/menu.html.twig') }}
+{% endblock %}
+
+{% block container %}
+	<hr>
+    <h1>Listado de Usuarios</h1>
+	<br><br>
+	{% if usuarios|length > 0 %}
+		<table class="table">
+			<thead>
+				<tr>
+					<td>Nombre</td>
+					<td>Apellidos</td>
+					<td>Descripción</td>
+					<td>Email</td>
+					<td>Password</td>
+				</tr>
+			</thead>
+			{# Bucle for para recorrer el array #}
+			{% for usuario in usuarios|sort %}
+				<tr>
+					<td>{{usuario.name}}</td>
+					<td>{{usuario.surname}}</td>
+					<td>{{usuario.description}}</td>
+					<td>{{usuario.email}}</td>
+					<td>{{usuario.password}}</td>
+				</tr>
+			{% endfor %}			
+		</table>
+	{% endif %}
+
+{% endblock %}
