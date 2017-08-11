@@ -1,3 +1,4 @@
+#################### COMMON ########################
 login:
     path: /login
     defaults: { _controller: BlogBundle:User:login }
@@ -11,7 +12,8 @@ logout:
 blog_homepage:
     path:     /index/{page}
     defaults: { _controller: BlogBundle:Entry:index, page:1 }
-    
+
+#################### TAG ########################
 blog_index_tag:
     path: /tags
     defaults: { _controller: BlogBundle:Tag:index }
@@ -23,7 +25,8 @@ blog_add_tag:
 blog_delete_tag:
     path: /tags/delete/{id}
     defaults: { _controller: BlogBundle:Tag:delete }
-    
+
+#################### CATEGORY ########################
 blog_index_category:
     path: /categories
     defaults: { _controller: BlogBundle:Category:index }
@@ -43,7 +46,8 @@ blog_edit_category:
 blog_read_category:
     path: /category/{id}/{page}
     defaults: { _controller: BlogBundle:Category:category, page:1 }
-    
+
+#################### ENTRY ########################
 blog_add_entry:
     path: /entries/add
     defaults: { _controller: BlogBundle:Entry:add }
@@ -60,6 +64,7 @@ blog_view_entry:
     path: /entries/view/{id}/{title}
     defaults: { _controller: BlogBundle:Entry:view, title:alex }
 
+#################### USER ########################
 blog_index_user:
     path: /users
     defaults: { _controller: BlogBundle:User:index }
@@ -76,6 +81,7 @@ blog_delete_user:
     path: /users/delete/{id}
     defaults: { _controller: BlogBundle:User:delete }
 
+#################### PAGE ########################
 blog_index_page:
     path: /pages
     defaults: { _controller: BlogBundle:Page:index }
@@ -88,6 +94,7 @@ blog_edit_page:
     path: /pages/edit/{id}
     defaults: { _controller: BlogBundle:Page:edit }
 
+#################### LANG ########################
 blog_lang:
     path: /lang/{_locale}
     defaults: { _controller: BlogBundle:Default:lang }
