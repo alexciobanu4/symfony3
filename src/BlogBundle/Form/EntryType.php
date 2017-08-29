@@ -59,6 +59,14 @@ class EntryType extends AbstractType
 				"label" => "Etiquetas:",
 				"attr" =>array("class" => "form-control")
 			))
+			->add('active', ChoiceType::class,array(
+				"label" => "Estado:",
+				"choices"=> array(
+					"Activo" => "1",
+					"Inactivo" => "0"
+				),
+				"attr" =>array("class" => "form-control")
+			))
 			->add('Guardar', SubmitType::class, array("attr" =>array(
 				"class" => "form-submit btn btn-success",
 			)))

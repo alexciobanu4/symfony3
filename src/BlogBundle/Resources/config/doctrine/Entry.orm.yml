@@ -43,6 +43,12 @@ BlogBundle\Entity\Entry:
             length: 255
             options:
                 fixed: false
+        active:
+            type: integer
+            nullable: true
+            length: 11
+            options:
+                fixed: false
     manyToOne:
         user:
             targetEntity: User

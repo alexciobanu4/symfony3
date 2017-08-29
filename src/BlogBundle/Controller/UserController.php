@@ -95,21 +95,22 @@ class UserController extends Controller
 		$form = $this->createForm(UserType::class,$user);
 		$form->handleRequest($request);
 
-		$password_actual=$user->getPassword();
-
 		if($form->isSubmitted()){
 			if($form->isValid()){
-
 				$user->setName($form->get("name")->getData());
 				$user->setSurname($form->get("surname")->getData());
 				$user->setEmail($form->get("email")->getData());
 
-				$pass=$form["password"]->getData();
+				$password = $user->getPassword();
 				
-				$factory = $this->get("security.encoder_factory");
-				$encoder = $factory->getEncoder($user);
-				$password = $encoder->encodePassword($form->get("password")->getData(), $user->getSalt());
-				$user->setPassword($password);
+				if(!empty($password) && $password!=null){
+					$factory = $this->get("security.encoder_factory");
+					$encoder = $factory->getEncoder($user);
+					$password = $encoder->encodePassword($form->get("password")->getData(), $user->getSalt());
+					$user->setPassword($password);
+				}else{
+					$user->setPassword($password);
+				}
 
 				$user->setRole($form->get("role")->getData());
 				$user->setImagen(null);

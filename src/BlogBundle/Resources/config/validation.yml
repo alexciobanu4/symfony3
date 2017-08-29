@@ -20,9 +20,9 @@ BlogBundle\Entity\User:
     properties:
         email:
             - NotBlank: {message: "El email no puede estar vacío"}
-            - Email:
-                message: El email {{ value }} no es válido.
-                checkMX: true
+            # - Email:
+            #     message: El email {{ value }} no es válido.
+            #     checkMX: true
         password:
             - NotBlank: {message: "La contraseña no puede estar vacía"}
             - Length:

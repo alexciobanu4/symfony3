@@ -26,6 +26,7 @@ class EntryController extends Controller
 		
 		$pageSize = 5;
 		$entries=$entry_repo->getPaginateEntries($pageSize,$page);
+		//$entries=$entry_repo->nativeSqlQuery();
 		
 		$totalItems = count($entries);
 		$pagesCount = ceil($totalItems/$pageSize);
@@ -38,6 +39,17 @@ class EntryController extends Controller
 			"pagesCount" => $pagesCount,
 			"page" => $page,
 			"page_m" => $page
+		));
+	}
+
+	public function customAction(Request $request){		
+		$em = $this->getDoctrine()->getEntityManager();
+		$entry_repo=$em->getRepository("BlogBundle:Entry");
+
+		$entries=$entry_repo->queryBuilder();
+
+		return $this->render("BlogBundle:Entry:custom.html.twig",array(
+			"entries" => $entries
 		));
 	}
 
@@ -59,6 +71,7 @@ class EntryController extends Controller
 				$entry->setTitle($form->get("title")->getData());
 				$entry->setContent($form->get("content")->getData());
 				$entry->setStatus($form->get("status")->getData());
+				$entry->setActive($form->get("active")->getData());
 				
 				// upload file
 				$file=$form["image"]->getData();
@@ -166,6 +179,7 @@ class EntryController extends Controller
 				$entry->setTitle($form->get("title")->getData());
 				$entry->setContent($form->get("content")->getData());
 				$entry->setStatus($form->get("status")->getData());
+				$entry->setActive($form->get("active")->getData());
 				 
 				// upload file
 				$file=$form["image"]->getData();
@@ -233,16 +247,14 @@ class EntryController extends Controller
 
 		$em = $this->getDoctrine()->getEntityManager();
 		$entry_repo = $em->getRepository("BlogBundle:Entry");
-		$category_repo = $em->getRepository("BlogBundle:Category");
-		$user_repo = $em->getRepository("BlogBundle:User");
-		
-		$entry=$entry_repo->find($id);
-		
+
+		$entry=$entry_repo->viewEntry($id);
+
 		$tags="";
 		foreach($entry->getEntryTag() as $entryTag){
 			$tags.=$entryTag->getTag()->getName().",";
 		}
-		
+
 		return $this->render("BlogBundle:Entry:view.html.twig",array(
 			"entry" => $entry,
 			"tags" => $tags

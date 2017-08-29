@@ -34,7 +34,7 @@ class UserType extends AbstractType
     				"class" => "form-email form-control",
     			)))
             ->add('password',RepeatedType::class, array(
-                //'type' => PasswordType::class,
+                'type' => PasswordType::class,
                 'required' => true,
                 'invalid_message' => 'Las contraseñas deben coincidir',
                 'first_options'  => array('label' => 'Contraseña'),

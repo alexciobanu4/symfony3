@@ -3,6 +3,7 @@ namespace BlogBundle\Repository;
 use BlogBundle\Entity\Tag;
 use BlogBundle\Entity\EntryTag;
 use \Doctrine\ORM\Tools\Pagination\Paginator;
+use \Doctrine\ORM\EntityRepository;
 
 class EntryRepository extends \Doctrine\ORM\EntityRepository {
 
@@ -73,5 +74,59 @@ class EntryRepository extends \Doctrine\ORM\EntityRepository {
 		
 		$paginator = new Paginator($query, $fetchJoinCollection = true);
 		return $paginator;
+	}
+
+	public function viewEntry($id) {
+
+		$em = $this->getEntityManager();
+		$entry = $em->getRepository("BlogBundle:Entry")
+		         ->findOneBy(array("id"=>$id));
+
+		return $entry;
+	}
+
+	//Función para mostrar registros con SQL nativo
+	public function nativeSqlQuery() {
+
+		$em = $this->getEntityManager();
+		$db = $em->getConnection();
+		$query = "SELECT * FROM entries ORDER BY id ASC";
+		$stmt = $db->prepare($query);
+		$params = array();
+		$stmt->execute($params);
+
+		$entries = $stmt->fetchAll();
+		return $entries;
+	}
+
+	//Función para mostrar registros con DQL
+	public function dqlQuery() {
+
+		$em = $this->getEntityManager();
+		
+		$query = $em->createQuery("
+			SELECT e FROM BlogBundle:Entry e
+			WHERE e.active = :active
+			ORDER BY e.id DESC
+		")->setParameter("active", "1");
+
+		$entries = $query->getResult();
+		return $entries;
+	}
+
+	//Función para mostrar registros con Query Builder
+	public function queryBuilder() {
+
+		$em = $this->getEntityManager();
+		$entry = $em->getRepository("BlogBundle:Entry");
+
+		$query = $entry->createQueryBuilder("e")
+				->where("e.active = :active")
+				->setParameter("active", "1")
+				->orderBy('e.id', 'DESC')
+				->getQuery();
+
+		$entries = $query->getResult();
+		return $entries;
 	}
 }

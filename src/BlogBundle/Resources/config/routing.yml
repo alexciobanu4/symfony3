@@ -13,6 +13,10 @@ blog_homepage:
     path:     /index/{page}
     defaults: { _controller: BlogBundle:Entry:index, page:1 }
 
+blog_homepage_custom:
+    path:     /custom
+    defaults: { _controller: BlogBundle:Entry:custom }
+
 #################### TAG ########################
 blog_index_tag:
     path: /tags

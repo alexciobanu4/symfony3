@@ -4,6 +4,9 @@
     <div class="title">
         <div class="title-container">
             <h1>Editar entrada: {{entry.title}}</h1>
+            {% for message in app.session.flashbag().get('status') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
         </div>
     </div>
     <div class="form">
@@ -39,6 +42,10 @@
                 <label>Imagen: </label>
                 <img width="200" src="{{ asset("dist/uploads/"~entry.image)}}"/>
                 {{form_widget(form.image)}}
+            </div>
+            <div class="form__group">
+                <label>Activo: </label>
+                {{form_widget(form.active)}}
             </div>
             
         {{form_end(form)}}

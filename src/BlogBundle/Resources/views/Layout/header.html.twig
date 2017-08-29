@@ -1,0 +1,25 @@
+<header class="header">
+    <div class="header-container">
+        <div class="header__logo">
+            <a href="{{path("blog_homepage")}}">
+                <img src="{{ asset("dist/uploads/logo.png")}}">
+            </a>
+        </div>
+
+        {% include "BlogBundle:Layout:nav.html.twig" %}
+        
+        <div class="header__top-right">
+            {% if app.user != null %}
+            <a href="{{path("blog_edit_user", {"id":app.user.id})}}">
+            {% endif %}
+                {% if app.user != null %}
+                    Hola <strong>{{app.user.name}} {{app.user.surname}}</strong> | <a href="{{path("logout")}}">Salir</a>
+                {% else %}
+                    <a href="{{path("login")}}">Entrar</a> | <a href="{{path("blog_add_user")}}">Alta usuario</a>
+                {% endif %}
+            {% if app.user != null %}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</header>

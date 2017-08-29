@@ -43,6 +43,11 @@ class Entry
      */
     private $category;
 
+    /**
+     * @var integer
+     */
+    private $active;
+
 
 	protected $entryTag;
 	
@@ -215,5 +220,29 @@ class Entry
 	public function getEntryTag(){
 		return $this->entryTag;
 	}
+
+    /**
+     * Set active
+     *
+     * @param string $active
+     *
+     * @return Entry
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return string
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
 }
 
