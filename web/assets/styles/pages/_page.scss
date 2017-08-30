@@ -147,6 +147,12 @@
             }
         }
     }
+    ul {
+        li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+    }
 }
 
 .alert {
@@ -155,4 +161,8 @@
     background: $color-twitter;
     color: $color-white;
     margin-bottom: 20px;
+}
+
+.categorias {
+    @include container;
 }

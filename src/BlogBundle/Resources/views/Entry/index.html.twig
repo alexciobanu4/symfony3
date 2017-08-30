@@ -1,9 +1,5 @@
 {% extends "BlogBundle::layout.html.twig" %}
 
-{% block menu %}
-    {% include "BlogBundle:Category:menu.categories.html.twig" with {'categories': categories}  %}
-{% endblock %}
-
 {% block content %}
     <div class="title">
         <div class="title-container">
@@ -15,6 +11,12 @@
     {% for message in app.session.flashbag().get('status') %}
         <div class="alert alert-success">{{ message }}</div>
     {% endfor %}
+    
+<div class="listado">
+    <div class="listado-container">
+        {% include "BlogBundle:Category:menu.categories.html.twig" with {'categories': categories}  %}
+    </div>
+</div>
 
 <div class="entradas">
 
@@ -30,9 +32,10 @@
             </div>
             <figcaption>
                 <div class="description">
-
+                    {% if (entry.date != null) %}
+                    <strong>{{ entry.date|date("d/m/Y") }}</strong> <br>
+                    {% endif %}
                     {{ entry.content|striptags|slice(0, 100) }}...
-                  
                 </div>
                 <div class="viewmore">
                     {% if (app.user.id is defined) %}

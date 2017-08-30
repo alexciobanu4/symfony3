@@ -3,9 +3,9 @@
         <li><a href="{{path("blog_homepage")}}">Entradas</a></li>
         <li><a href="{{path("blog_index_page")}}">Páginas</a></li>
         <li><a href="{{path("blog_index_category")}}">Categorías</a>
-            <ul class="submenu">
+            {#<ul class="submenu">
                 {% block menu %}{% endblock %}
-            </ul>
+            </ul>#}
         </li>
         <li><a href="{{path("blog_index_tag")}}">Etiquetas</a></li>
         <li><a href="{{path("blog_index_user")}}">Usuarios</a></li>

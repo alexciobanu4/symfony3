@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use BlogBundle\Entity\Entry;
 use BlogBundle\Form\EntryType;
 
-
 class EntryController extends Controller
 {
 	private $session;
@@ -73,6 +72,8 @@ class EntryController extends Controller
 				$entry->setStatus($form->get("status")->getData());
 				$entry->setActive($form->get("active")->getData());
 				
+				$fecha = date("Y-m-d");
+				$entry->setDate(new \DateTime($fecha));
 				// upload file
 				$file=$form["image"]->getData();
 				
@@ -180,7 +181,7 @@ class EntryController extends Controller
 				$entry->setContent($form->get("content")->getData());
 				$entry->setStatus($form->get("status")->getData());
 				$entry->setActive($form->get("active")->getData());
-				 
+
 				// upload file
 				$file=$form["image"]->getData();
 				

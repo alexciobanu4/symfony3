@@ -48,6 +48,11 @@ class Entry
      */
     private $active;
 
+    /**
+     * @var date
+     */
+    private $date;
+
 
 	protected $entryTag;
 	
@@ -243,6 +248,30 @@ class Entry
     public function getActive()
     {
         return $this->active;
+    }
+
+    /**
+     * Set date
+     *
+     * @param date $date
+     *
+     * @return Entry
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return date
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }
 

@@ -12,6 +12,12 @@
     </div>
 </div>
 
+<div class="listado">
+    <div class="listado-container">
+        {% include "BlogBundle:Category:menu.categories.html.twig" with {'categories': categories}  %}
+    </div>
+</div>
+
 <div class="entradas">
 
     {% for entry in entries %}
