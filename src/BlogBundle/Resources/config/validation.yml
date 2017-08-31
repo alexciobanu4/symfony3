@@ -31,7 +31,7 @@ BlogBundle\Entity\User:
                 - NotBlank: {message: "La contraseña no puede estar vacía"}
                 - Length:
                     min: 2
-                    minMessage: "La contraseña debe que tener mas de 5 caracteres"
+                    minMessage: "La contraseña debe que tener más de 5 caracteres"
             email:
                 - NotBlank: {message: "El email no puede estar vacío."}
                 - Email: {message: "El email {{ value }} no es válido." }

@@ -36,12 +36,12 @@ class CategoryController extends Controller
 			if($form->isValid()){
 				
 				$em = $this->getDoctrine()->getEntityManager();
-				$functions = $this->get('functions');
 
 				$category = new Category();
 				$category->setName($form->get("name")->getData());
 				$category->setDescription($form->get("description")->getData());
 
+				$functions = $this->get('functions');
 				$slug=$functions->createSlug($form->get("name")->getData());
 				$category->setSlug($slug);
 				
@@ -93,12 +93,11 @@ class CategoryController extends Controller
 		
 		if($form->isSubmitted()){
 			if($form->isValid()){
-				
-				$functions = $this->get('functions');
 
 				$category->setName($form->get("name")->getData());
 				$category->setDescription($form->get("description")->getData());
 
+				$functions = $this->get('functions');
 				$slug=$functions->createSlug($form->get("name")->getData());
 				$category->setSlug($slug);
 
