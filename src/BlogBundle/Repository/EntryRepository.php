@@ -95,8 +95,8 @@ class EntryRepository extends \Doctrine\ORM\EntityRepository {
 		$db = $em->getConnection();
 		$query = "SELECT * FROM entries ORDER BY id ASC";
 		$stmt = $db->prepare($query);
-		$params = array();
-		$stmt->execute($params);
+		//$params = array();
+		$stmt->execute();
 
 		$entries = $stmt->fetchAll();
 		return $entries;
@@ -132,4 +132,5 @@ class EntryRepository extends \Doctrine\ORM\EntityRepository {
 		$entries = $query->getResult();
 		return $entries;
 	}
+
 }

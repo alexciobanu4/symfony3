@@ -23,9 +23,6 @@ class CategoryType extends AbstractType
             ->add('description',TextType::class, array("label"=>"Descripción:","required"=>"false", "attr" =>array(
 				"class" => "form-name form-control",
 			)))
-            ->add('slug',TextType::class, array("label"=>"Slug:","required"=>"true", "attr" =>array(
-                "class" => "form-name form-control",
-            )))
 			->add('Guardar', SubmitType::class, array("attr" =>array(
 				"class" => "form-submit btn btn-success",
 			)))

@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use BlogBundle\Entity\Category;
 use BlogBundle\Form\CategoryType;
 
-
 class CategoryController extends Controller
 {
 	private $session;
@@ -37,10 +36,14 @@ class CategoryController extends Controller
 			if($form->isValid()){
 				
 				$em = $this->getDoctrine()->getEntityManager();
-				
+				$functions = $this->get('functions');
+
 				$category = new Category();
 				$category->setName($form->get("name")->getData());
 				$category->setDescription($form->get("description")->getData());
+
+				$slug=$functions->createSlug($form->get("name")->getData());
+				$category->setSlug($slug);
 				
 				$em->persist($category);
 				$flush = $em->flush();
@@ -91,9 +94,14 @@ class CategoryController extends Controller
 		if($form->isSubmitted()){
 			if($form->isValid()){
 				
+				$functions = $this->get('functions');
+
 				$category->setName($form->get("name")->getData());
 				$category->setDescription($form->get("description")->getData());
-				
+
+				$slug=$functions->createSlug($form->get("name")->getData());
+				$category->setSlug($slug);
+
 				$em->persist($category);
 				$flush = $em->flush();
 				

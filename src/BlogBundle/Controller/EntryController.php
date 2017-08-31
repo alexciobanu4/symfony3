@@ -50,7 +50,7 @@ class EntryController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$entry_repo=$em->getRepository("BlogBundle:Entry");
 
-		$entries=$entry_repo->queryBuilder();
+		$entries=$entry_repo->nativeSqlQuery();
 
 		return $this->render("BlogBundle:Entry:custom.html.twig",array(
 			"entries" => $entries
