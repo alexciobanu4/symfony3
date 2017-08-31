@@ -32,6 +32,10 @@ class Page
         return $this->id;
     }
 
+    public function __toString() {
+        return $this->title;
+    }
+
     /**
      * Set name
      *

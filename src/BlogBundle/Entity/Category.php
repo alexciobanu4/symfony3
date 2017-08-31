@@ -22,6 +22,8 @@ class Category
      */
     private $description;
 
+    private $slug;
+
 	protected $entry;
 	
 	public function __construct() {
@@ -93,5 +95,29 @@ class Category
 	public function getEntries(){
 		return $this->entry;
 	}
+
+    /**
+     * Set slug
+     *
+     * @param string $name
+     *
+     * @return Category
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 }
 

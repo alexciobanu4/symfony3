@@ -12,13 +12,15 @@ class EntryRepository extends \Doctrine\ORM\EntityRepository {
 		
 		$tag_repo=$em->getRepository("BlogBundle:Tag");
 		
-		if($entry==null){
+		if($entry==null) {
 			$entry=$this->findOneBy(array(
 				"title"=>$title,
 				"category"=>$category,
 				"user"=>$user
 			));
-		}else{}
+		} else {
+			
+		}
 		
 		$tags.=",";
 		$tags = explode(",", $tags);
@@ -30,9 +32,10 @@ class EntryRepository extends \Doctrine\ORM\EntityRepository {
 				$tag_obj = new Tag();
 				$tag_obj->setName($tag);
 				$tag_obj->setDescription($tag);
+				
 				//if(!empty(trim($tag))){
-				$em->persist($tag_obj);
-				$em->flush();
+					$em->persist($tag_obj);
+					$em->flush();
 				//}
 			}
 			
@@ -99,7 +102,7 @@ class EntryRepository extends \Doctrine\ORM\EntityRepository {
 		return $entries;
 	}
 
-	//Función para mostrar registros con DQL
+	//Función para mostrar registros con DQL (Doctrine Query Language) 
 	public function dqlQuery() {
 
 		$em = $this->getEntityManager();

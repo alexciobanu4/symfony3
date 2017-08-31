@@ -6,10 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class CategoryType extends AbstractType
 {
@@ -20,12 +17,15 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',TextType::class, array("label"=>"Nombre:","required"=>"false", "attr" =>array(
+            ->add('name',TextType::class, array("label"=>"Nombre:","required"=>"true", "attr" =>array(
 				"class" => "form-name form-control",
 			)))
-            ->add('description',TextareaType::class, array("label"=>"Descripción:","required"=>"false", "attr" =>array(
+            ->add('description',TextType::class, array("label"=>"Descripción:","required"=>"false", "attr" =>array(
 				"class" => "form-name form-control",
 			)))
+            ->add('slug',TextType::class, array("label"=>"Slug:","required"=>"true", "attr" =>array(
+                "class" => "form-name form-control",
+            )))
 			->add('Guardar', SubmitType::class, array("attr" =>array(
 				"class" => "form-submit btn btn-success",
 			)))

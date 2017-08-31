@@ -53,6 +53,11 @@ class EntryType extends AbstractType
 				"label" => "Usuario:",
 				"attr" =>array("class" => "form-control")
 			))
+			->add('page', EntityType::class,array(
+                "class" => "BlogBundle:Page",
+                "label" => "Página:",
+                "attr" =>array("class" => "form-control")
+            ))
 			->add('tags', TextType::class,array(
 				"mapped" => false,
 				"required" => false,

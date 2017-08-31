@@ -56,12 +56,13 @@ class CategoryController extends Controller
 			}
 			
 			$this->session->getFlashBag()->add("status", $status);
-			return $this->redirectToRoute("blog_index_category");
+			//return $this->redirectToRoute("blog_index_category");
 		}
 		
 		
 		return $this->render("BlogBundle:Category:add.html.twig",array(
-			"form" => $form->createView()
+			"form" => $form->createView(),
+			"status" => $status
 		));
 	}
 	

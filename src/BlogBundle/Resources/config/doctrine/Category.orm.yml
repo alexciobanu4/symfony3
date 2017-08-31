@@ -23,6 +23,12 @@ BlogBundle\Entity\Category:
             length: 65535
             options:
                 fixed: false
+        slug:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
     oneToMany:
         entry:
             targetEntity: Entry

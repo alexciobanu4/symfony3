@@ -166,3 +166,14 @@
 .categorias {
     @include container;
 }
+
+#portfoliolist .portfolio {
+    display:none;
+    overflow:hidden;
+}
+#filters {
+    li {
+        cursor: pointer;
+        @include underline-from-center;
+    }
+}

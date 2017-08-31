@@ -39,9 +39,14 @@ class Entry
     private $user;
 
     /**
-     * @var \BlogBundle\Entity\Categories
+     * @var \BlogBundle\Entity\Category
      */
     private $category;
+
+    /**
+     * @var \BlogBundle\Entity\Page
+     */
+    private $page;
 
     /**
      * @var integer
@@ -272,6 +277,30 @@ class Entry
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set page
+     *
+     * @param \BlogBundle\Entity\Page $page
+     *
+     * @return Entry
+     */
+    public function setPage(\BlogBundle\Entity\Page $page = null)
+    {
+        $this->page = $page;
+
+        return $this;
+    }
+
+    /**
+     * Get page
+     *
+     * @return \BlogBundle\Entity\Page
+     */
+    public function getPage()
+    {
+        return $this->page;
     }
 }
 

@@ -19,6 +19,7 @@
                 <tr>
                     <th>Nombre</th>
                     <th>Descripción</th>
+                    <th>Slug</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
                 </tr>
@@ -26,6 +27,7 @@
                     <tr>
                         <td>{{ category.name }}</td>
                         <td>{{ category.description }}</td>
+                        <td>{{ category.slug }}</td>
                         <td><a href="{{path("blog_edit_category", {"id":category.id})}}" class="btn-edit">Editar</a></td>
                         <td>
                             {% if category.entries|length == 0 %}

@@ -29,11 +29,16 @@ class EntryController extends Controller
 		
 		$totalItems = count($entries);
 		$pagesCount = ceil($totalItems/$pageSize);
-		
+
+		$category_list = "";
+		foreach($categories as $cat_list){
+			$category_list .= "." . $cat_list->getSlug() . ", ";
+		}
 		
 		return $this->render("BlogBundle:Entry:index.html.twig",array(
 			"entries" => $entries,
 			"categories" => $categories,
+			"category_list" => substr($category_list, 0, -2),
 			"totalItems" => $totalItems,
 			"pagesCount" => $pagesCount,
 			"page" => $page,
@@ -65,6 +70,7 @@ class EntryController extends Controller
 				$em = $this->getDoctrine()->getEntityManager();
 				$entry_repo=$em->getRepository("BlogBundle:Entry");
 				$category_repo=$em->getRepository("BlogBundle:Category");
+				$page_repo = $em->getRepository("BlogBundle:Page");
 				
 				$entry = new Entry();
 				$entry->setTitle($form->get("title")->getData());
@@ -92,6 +98,9 @@ class EntryController extends Controller
 				
 				$user=$this->getUser();
 				$entry->setUser($user);
+
+				$page = $page_repo->find($form->get("page")->getData());
+				$entry->setPage($page);
 				
 				$em->persist($entry);
 				$flush=$em->flush();
@@ -161,6 +170,7 @@ class EntryController extends Controller
 		$entry_repo = $em->getRepository("BlogBundle:Entry");
 		$category_repo = $em->getRepository("BlogBundle:Category");
 		$user_repo = $em->getRepository("BlogBundle:User");
+		$page_repo = $em->getRepository("BlogBundle:Page");
 		
 		$entry=$entry_repo->find($id);
 		$entry_image=$entry->getImage();
@@ -201,6 +211,9 @@ class EntryController extends Controller
 				//$user=$this->getUser();
 				$user = $user_repo->find($form->get("user")->getData());
 				$entry->setUser($user);
+
+				$page = $page_repo->find($form->get("page")->getData());
+				$entry->setPage($page);
 				
 				$em->persist($entry);
 				$flush=$em->flush();

@@ -8,7 +8,10 @@
     </div>
 	<div class="form">
         <div class="form-container">
-			{{form_start(form)}}
+            {% for message in app.session.flashbag().get('status') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+			{{form_start(form, {'attr': {'novalidate': 'novalidate'}} )}}
 			<div class="form__group">
                 <label>Nombre: </label>
                 {{form_widget(form.name)}}
@@ -16,6 +19,10 @@
             <div class="form__group">
                 <label>Descripción: </label>
                 {{form_widget(form.description)}}
+            </div>
+            <div class="form__group">
+                <label>Slug: </label>
+                {{form_widget(form.slug)}}
             </div>
        		{{form_end(form)}}
         </div>

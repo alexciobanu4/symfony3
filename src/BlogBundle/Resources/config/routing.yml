@@ -98,6 +98,14 @@ blog_edit_page:
     path: /pages/edit/{id}
     defaults: { _controller: BlogBundle:Page:edit }
 
+blog_delete_page:
+    path: /pages/delete/{id}
+    defaults: { _controller: BlogBundle:Page:delete }
+
+blog_view_page:
+    path: /pages/view/{id}/{title}
+    defaults: { _controller: BlogBundle:Page:view, title:alex }
+
 #################### LANG ########################
 blog_lang:
     path: /lang/{_locale}

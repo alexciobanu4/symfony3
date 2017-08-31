@@ -22,13 +22,17 @@
                 <th>Eliminar</th>
             </tr>
             {% for page in pages %}
+
+                {% set titulo = page.title|replace({' ': "-", "," : "-", "!" : ""}) %}
                 <tr>
-                    <td>{{ page.title }}</td>
+                    <td><a href="{{path("blog_view_page",{"id":page.id, "title":titulo|lower})}}">{{ page.title }}</a></td>
                     <td>{{ page.description|slice(0, 200)|raw }}...</td>
                     <td>
-                       <a href="{{path("blog_edit_page", {"id":page.id})}}" class="btn btn-warning">Editar</a>
+                       <a href="{{path("blog_edit_page", {"id":page.id})}}" class="btn-edit">Editar</a>
                     </td>
-                    <td></td>
+                    <td>
+                        <a href="{{path("blog_delete_page", {"id":page.id})}}" class="btn-delete" onclick="return confirm('Confirmas el borrado?')">Eliminar</a>
+                    </td>
                 </tr>
             {% endfor %}
         </table>

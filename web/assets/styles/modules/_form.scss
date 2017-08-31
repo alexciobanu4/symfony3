@@ -2,6 +2,10 @@
    Input :: Global
    ========================================================================== */
 
+input[type="file"] {
+    width: inherit !important;
+}
+
 input:not([type="submit"]) {
     background-color: $color-white;
     border: 1px solid $color-gray-a;

@@ -64,18 +64,15 @@ class PageController extends Controller
 		));
 	}
 	
-	// public function deleteAction($id){
-	// 	$em = $this->getDoctrine()->getEntityManager();
-	// 	$category_repo=$em->getRepository("BlogBundle:Category");
-	// 	$category=$category_repo->find($id);
+	public function deleteAction($id){
+		$em = $this->getDoctrine()->getEntityManager();
+		$page_repo=$em->getRepository("BlogBundle:Page");
+		$page=$page_repo->find($id);
+		$em->remove($page);
+		$em->flush();
 		
-	// 	if(count($category->getEntries())==0){
-	// 		$em->remove($category);
-	// 		$em->flush();
-	// 	}
-		
-	// 	return $this->redirectToRoute("blog_index_category");
-	// }
+		return $this->redirectToRoute("blog_index_page");
+	}
 	
 	public function editAction(Request $request, $id){
 		$em = $this->getDoctrine()->getEntityManager();
@@ -111,6 +108,20 @@ class PageController extends Controller
 		
 		return $this->render("BlogBundle:Page:edit.html.twig",array(
 			"form" => $form->createView()
+		));
+	}
+
+	public function viewAction($id){
+
+		$em = $this->getDoctrine()->getEntityManager();
+		$page = $em->getRepository("BlogBundle:Page")
+		         ->findOneBy(array("id"=>$id));
+		$entry = $em->getRepository("BlogBundle:Entry")
+		         ->findBy(array("page"=>$id));
+
+		return $this->render("BlogBundle:Page:view.html.twig",array(
+			"page" => $page,
+			"entries" => $entry
 		));
 	}
 	

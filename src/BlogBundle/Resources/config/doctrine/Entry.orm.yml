@@ -9,6 +9,9 @@ BlogBundle\Entity\Entry:
         fk_entries_categories:
             columns:
                 - category_id
+        fk_entries_pages:
+            columns:
+                - page_id
     id:
         id:
             type: integer
@@ -74,6 +77,16 @@ BlogBundle\Entity\Entry:
             inversedBy: entry
             joinColumns:
                 category_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        page:
+            targetEntity: Page
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: entry
+            joinColumns:
+                page_id:
                     referencedColumnName: id
             orphanRemoval: false
     oneToMany:

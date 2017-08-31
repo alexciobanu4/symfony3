@@ -29,11 +29,16 @@ security:
             logout:
                 path: /logout
                 target: /login
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
 
     access_control:
         - { path: ^/tags, roles: ROLE_ADMIN}
         - { path: ^/categories, roles: ROLE_ADMIN}
         - { path: ^/entries/add, roles: ROLE_ADMIN}
+        - { path: ^/users, roles: ROLE_ADMIN}
             # activate different ways to authenticate
 
             # http_basic: ~

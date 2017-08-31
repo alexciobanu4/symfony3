@@ -57,23 +57,12 @@ gulp.task('styles', () => {
 gulp.task('scripts', () =>
     gulp.src([
       //'./app/scripts/plugins/*.js',
-      './app/scripts/main.js'
+      './assets/scripts/*.js'
     ])
-      .pipe($.newer('.tmp/scripts'))
-      .pipe($.sourcemaps.init())
-      .pipe($.babel())
-      .pipe($.sourcemaps.write())
-      .pipe(gulp.dest('.tmp/scripts'))
-      .pipe($.concat('main.min.js'))
+      .pipe($.concat('main.js'))
       .pipe($.uglify({preserveComments: 'some'}))
       // Output files
-      .pipe($.size({title: 'scripts'}))
-      .pipe($.sourcemaps.write('.'))
-      .pipe(rev())
       .pipe(gulp.dest('dist/scripts'))
-      .pipe(rev.manifest({merge: true}))
-      .pipe(gulp.dest('dist/scripts'))
-      .pipe(gulp.dest('.tmp/scripts'))
 );
 
 // Clean output directory
@@ -83,7 +72,7 @@ gulp.task('clean', () => del(['dist/*', '!dist/.git'], {dot: true}));
 gulp.task('default', ['clean'], cb =>
   runSequence(
     'styles',
-    ['images'],
+    ['images', 'scripts'],
     cb
   )
 );

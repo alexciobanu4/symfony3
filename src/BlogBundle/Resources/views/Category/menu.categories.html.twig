@@ -1,5 +1,13 @@
-<ul>
-{% for category in categories %}
-    <li><a href="{{path("blog_read_category",{"id":category.id})}}">{{category.name}}</a></li>
-{% endfor %}
+
+<ul id="filters">
+	<li><span class="filter active" data-filter="{{category_list}}">All</span></li>
+	{% for category in categories %}
+    <li>
+    	<span class="filter" data-filter=".{{category.slug}}">
+    		{#<a href="{{path("blog_read_category",{"id":category.id})}}">#}
+    			{{category.name}}
+    		{#</a>#}
+    	</span>
+    </li>
+	{% endfor %}
 </ul>
