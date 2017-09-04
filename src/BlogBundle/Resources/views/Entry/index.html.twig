@@ -23,9 +23,9 @@
     {% for entry in entries %}
         <figure class="entrada portfolio {{entry.category.slug}}" data-cat="{{entry.category.slug}}" animacion="zoomIn">
             <div class="imagen">
-                {% set titulo = entry.title|replace({' ': "-", "," : "-", "!" : ""}) %}
+                {% set titulo = entry.title|friendlyUrl %}
 
-                <a href="{{path("blog_view_entry",{"id":entry.id, "title":titulo|lower})}}">
+                <a href="{{path("blog_view_entry",{"id":entry.id, "title":titulo})}}">
                     <div class="imagen__image" style="background-image: url({{ asset("dist/uploads/"~entry.image)}});"></div>
                     <h3>{{entry.title}}</h3>
                 </a>

@@ -19,3 +19,4 @@ services:
         arguments: ["%kernel.default_locale%"]
         tags:
             - { name: kernel.event_suscriber }
+

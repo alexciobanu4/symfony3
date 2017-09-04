@@ -65,7 +65,9 @@ class Entry
 		$this->entryTag = new ArrayCollection();
 	}
 
-
+    public function __toString() {
+        return $this->title;
+    }
 	/**
      * Get id
      *

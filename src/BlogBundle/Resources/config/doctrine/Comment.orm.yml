@@ -1,0 +1,61 @@
+BlogBundle\Entity\Comment:
+    type: entity
+    table: comments
+    repositoryClass: BlogBundle\Repository\CommentRepository
+    indexes:
+        fk_entries_users:
+            columns:
+                - user_id
+        fk_entries_entry:
+            columns:
+                - entry_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        date:
+            type: date
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        content:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        active:
+            type: integer
+            nullable: true
+            length: 11
+            options:
+                fixed: false
+    manyToOne:
+        user:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        entry:
+            targetEntity: Entry
+            cascade: ["persist"]
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: entry
+            joinColumns:
+                entry_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

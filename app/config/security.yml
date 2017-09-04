@@ -35,9 +35,18 @@ security:
                 path:     /
 
     access_control:
-        - { path: ^/tags, roles: ROLE_ADMIN}
-        - { path: ^/categories, roles: ROLE_ADMIN}
+        - { path: ^/tags/add, roles: ROLE_ADMIN}
+        - { path: ^/tags/edit, roles: ROLE_ADMIN}
+        - { path: ^/tags/delete, roles: ROLE_ADMIN}
+        - { path: ^/categories/add, roles: ROLE_ADMIN}
+        - { path: ^/categories/edit, roles: ROLE_ADMIN}
+        - { path: ^/categories/delete, roles: ROLE_ADMIN}
         - { path: ^/entries/add, roles: ROLE_ADMIN}
+        - { path: ^/entries/edit, roles: ROLE_ADMIN}
+        - { path: ^/entries/delete, roles: ROLE_ADMIN}
+        - { path: ^/pages/add, roles: ROLE_ADMIN}
+        - { path: ^/pages/edit, roles: ROLE_ADMIN}
+        - { path: ^/pages/delete, roles: ROLE_ADMIN}
         - { path: ^/users, roles: ROLE_ADMIN}
             # activate different ways to authenticate
 

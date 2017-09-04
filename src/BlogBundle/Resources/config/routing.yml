@@ -106,6 +106,19 @@ blog_view_page:
     path: /pages/view/{id}/{title}
     defaults: { _controller: BlogBundle:Page:view, title:alex }
 
+#################### COMMENT ########################
+blog_index_comment:
+    path: /comments
+    defaults: { _controller: BlogBundle:Comment:index }
+
+blog_delete_comment:
+    path: /comments/delete/{id}
+    defaults: { _controller: BlogBundle:Comment:delete }
+
+blog_verify_comment:
+    path: /comments/verify/{id}
+    defaults: { _controller: BlogBundle:Comment:verify }
+
 #################### LANG ########################
 blog_lang:
     path: /lang/{_locale}

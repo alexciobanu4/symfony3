@@ -17,7 +17,7 @@ class CategoryController extends Controller
 	}
 
 	public function indexAction(){
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$category_repo=$em->getRepository("BlogBundle:Category");
 		$categories=$category_repo->findAll();
 		
@@ -35,7 +35,7 @@ class CategoryController extends Controller
 		if($form->isSubmitted()){
 			if($form->isValid()){
 				
-				$em = $this->getDoctrine()->getEntityManager();
+				$em = $this->getDoctrine()->getManager();
 
 				$category = new Category();
 				$category->setName($form->get("name")->getData());
@@ -70,7 +70,7 @@ class CategoryController extends Controller
 	}
 	
 	public function deleteAction($id){
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$category_repo=$em->getRepository("BlogBundle:Category");
 		$category=$category_repo->find($id);
 		
@@ -83,7 +83,7 @@ class CategoryController extends Controller
 	}
 	
 	public function editAction(Request $request, $id){
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$category_repo=$em->getRepository("BlogBundle:Category");
 		$category=$category_repo->find($id);
 		
@@ -125,7 +125,7 @@ class CategoryController extends Controller
 	}
 	
 	public function categoryAction($id,$page){
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$category_repo=$em->getRepository("BlogBundle:Category");
 		$category=$category_repo->find($id);
 		

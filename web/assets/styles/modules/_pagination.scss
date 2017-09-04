@@ -1,0 +1,15 @@
+.pagination {
+	@include flexy(row, wrap, center);
+	padding: 30px 0;
+	li {
+		display: inline-block;
+		margin: 0 5px;
+		border: $color-gray-global 1px solid;
+		padding: 5px 10px;
+		cursor: pointer;
+		&:hover {
+			background: $color-gray-global;
+			color: $color-white;
+		}
+	}
+}

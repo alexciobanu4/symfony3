@@ -36,3 +36,11 @@ BlogBundle\Entity\User:
                 - NotBlank: {message: "El email no puede estar vacío."}
                 - Email: {message: "El email {{ value }} no es válido." }
                 #     checkMX: true
+
+BlogBundle\Entity\Comment:
+    properties:
+            content:
+                - NotBlank: {message: "El comentario no puede estar vacío"}
+                - Length:
+                    min: 50
+                    minMessage: "El comentario debe que tener mas de 50 caracteres"

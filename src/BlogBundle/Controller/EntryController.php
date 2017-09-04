@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use BlogBundle\Entity\Entry;
 use BlogBundle\Form\EntryType;
+use BlogBundle\Entity\Comment;
+use BlogBundle\Form\CommentType;
 
 class EntryController extends Controller
 {
@@ -23,7 +25,7 @@ class EntryController extends Controller
 		
 		$categories=$category_repo->findAll();
 		
-		$pageSize = 5;
+		$pageSize = 3;
 		$entries=$entry_repo->getPaginateEntries($pageSize,$page);
 		//$entries=$entry_repo->nativeSqlQuery();
 		
@@ -82,10 +84,13 @@ class EntryController extends Controller
 				$entry->setDate(new \DateTime($fecha));
 				// upload file
 				$file=$form["image"]->getData();
+
+				$functions = $this->get('functions');
+				$file_slug=$functions->createSlug($form->get("title")->getData());
 				
 				if(!empty($file) && $file!=null){
 					$ext=$file->guessExtension();
-					$file_name=time().".".$ext;
+					$file_name=$file_slug.".".$ext;
 					$file->move("assets/uploads",$file_name);
 
 					$entry->setImage($file_name);
@@ -128,7 +133,8 @@ class EntryController extends Controller
 		
 		
 		return $this->render("BlogBundle:Entry:add.html.twig",array(
-			"form" => $form->createView()
+			"form" => $form->createView(),
+			"status" => $status
 		));
 	}
 	
@@ -149,11 +155,14 @@ class EntryController extends Controller
 		}
 
 		$entry_image=$entry->getImage();
-		$webPath = __DIR__.'/../../../web/dist/uploads/';
-		$imagePath = $webPath.$entry_image;
+		$webPath_dev = __DIR__.'/../../../web/assets/uploads/';
+		$webPath_dist = __DIR__.'/../../../web/dist/uploads/';
+		$imagePath_dev = $webPath_dev.$entry_image;
+		$imagePath_dist = $webPath_dist.$entry_image;
 		
-		if($imagePath!=null) {
-			unlink($imagePath);
+		if($imagePath_dev!=null) {
+			unlink($imagePath_dev); //Borramos imagen local
+			unlink($imagePath_dist); //Borramos imagen dist
 		}
 
 		if(is_object($entry)){
@@ -194,10 +203,13 @@ class EntryController extends Controller
 
 				// upload file
 				$file=$form["image"]->getData();
+
+				$functions = $this->get('functions');
+				$file_slug=$functions->createSlug($form->get("title")->getData());
 				
 				if(!empty($file) && $file!=null){
 					$ext=$file->guessExtension();
-					$file_name=time().".".$ext;
+					$file_name=$file_slug.".".$ext;
 					$file->move("assets/uploads",$file_name);
 
 					$entry->setImage($file_name);
@@ -259,9 +271,9 @@ class EntryController extends Controller
 
 	public function viewAction(Request $request, $id){
 
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
+		$entry = new Entry();
 		$entry_repo = $em->getRepository("BlogBundle:Entry");
-
 		$entry=$entry_repo->viewEntry($id);
 
 		$tags="";
@@ -269,9 +281,50 @@ class EntryController extends Controller
 			$tags.=$entryTag->getTag()->getName().",";
 		}
 
+		$comment = new Comment();
+
+		$form = $this->createForm(CommentType::class,$comment);
+		$form->handleRequest($request);
+
+		if($form->isSubmitted()){
+			if($form->isValid()){
+				
+				$comment->setContent($form->get("content")->getData());
+				$comment->setActive(0);
+				$comment->setEntry($entry);
+				
+				$fecha = date("Y-m-d");
+				$comment->setDate(new \DateTime($fecha));
+				
+				$user=$this->getUser();
+				$comment->setUser($user);
+
+				$em->persist($comment);
+				$flush=$em->flush();
+
+				if($flush==null) {
+					$status = "El comentario se ha enviado correctamente !!";
+				} else {
+					$status ="Error al añadir enviar el comentario!!";
+				}
+				
+			} else {
+				$status = "Debes rellenar el campo de comentario!";
+			}
+			
+			$this->session->getFlashBag()->add("status", $status);
+			//return $this->redirectToRoute("blog_homepage");
+		}
+
+		$comment_repo = $em->getRepository("BlogBundle:Comment");
+		$comments=$comment_repo->getVerifiedCommentsByEntry($id);
+
 		return $this->render("BlogBundle:Entry:view.html.twig",array(
 			"entry" => $entry,
-			"tags" => $tags
+			"tags" => $tags,
+			"status" => $status,
+			"comments" => $comments,
+			"form" => $form->createView()
 		));
 	}
 	

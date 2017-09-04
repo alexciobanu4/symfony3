@@ -18,7 +18,39 @@
             <span class="label label-default">{{et.tag.name}}</span>
         {% endfor %}
     </p>
-   
+   <br>
+   <h2>Comenarios</h2>
+   {% for comment in comments %}
+        <p>
+        <em>{{ comment.date|date("d/m/Y") }}</em> | <strong>{{comment.user}}</strong> <br>
+        {{comment.content}}
+        </p>
+   {% endfor %}
+   <hr><br>
+   <div class="title">
+        <div class="title-container">
+            <h2>Enviar un comenario</h2>
+        </div>
+    </div>
+    <div class="form">
+        <div class="form-container">
+
+            {% for message in app.session.flashbag().get('status') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+            {{form_start(form, {'attr': {'novalidate': 'novalidate'}} )}}
+            <div class="form__group">
+                <label>Comentario: </label>
+                {{form_widget(form.content)}}
+            </div>
+            {#<div class="form__group">
+                <input type="text" name="entry" value="{{ entry.id }}">
+                <input type="text" name="user" value="{{ app.user.id }}">
+            </div>#}
+
+        {{form_end(form)}}
+        </div>
+    </div> 
 {% endblock %}
 
 

@@ -9,5 +9,8 @@
         </li>
         <li><a href="{{path("blog_index_tag")}}">Etiquetas</a></li>
         <li><a href="{{path("blog_index_user")}}">Usuarios</a></li>
+        {% if is_granted('ROLE_ADMIN') %}
+        <li><a href="{{path("blog_index_comment")}}">Comentarios</a></li>
+        {% endif %}
     </ul>
 </nav>

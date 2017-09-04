@@ -1,0 +1,48 @@
+{% extends "BlogBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="title">
+        <div class="title-container">
+            <h1>Comentarios</h1>
+        </div>
+    </div>
+    
+    <div class="listado">
+        <div class="listado-container">
+        
+        {% for message in app.session.flashbag().get('status') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+
+        <table class="table table-bordered">
+            <tr>
+                <th>Fecha</th>
+                <th>Comentario</th>
+                <th>Usuario</th>
+                <th>Entrada</th>
+                <th>Aprobado</th>
+                <th>Eliminar</th>
+            </tr>
+            {% for comment in comments %}
+                <tr>
+                    <td>{{ comment.date|date("d/m/Y") }}</td>
+                    <td>{{ comment.content|raw }}</td>
+                    <td>{{ comment.user }}</td>
+                    <td>{{ comment.entry }}</td>
+                    <td>
+                        {% if(comment.active == 1) %} 
+                        Si 
+                        {% else %} 
+                        <a href="{{path("blog_verify_comment", {"id":comment.id})}}" class="btn-edit" onclick="return confirm('Confirmas el aprobado?')">Aprobar</a> 
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{path("blog_delete_comment", {"id":comment.id})}}" class="btn-delete" onclick="return confirm('Confirmas el borrado?')">Eliminar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        </div>
+    </div>
+
+{% endblock %}

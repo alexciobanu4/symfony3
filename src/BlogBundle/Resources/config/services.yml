@@ -5,3 +5,9 @@ services:
      functions:
         class: BlogBundle\Functions\Functions
         public: true
+
+     twig_filters:
+        class: BlogBundle\Twig\CustomFilters
+        public: true
+        tags:
+            - { name: twig.extension }
