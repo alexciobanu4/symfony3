@@ -19,7 +19,7 @@ class EntryController extends Controller
 	}
 	
 	public function indexAction(Request $request, $page){		
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$entry_repo=$em->getRepository("BlogBundle:Entry");
 		$category_repo=$em->getRepository("BlogBundle:Category");
 		
@@ -47,18 +47,6 @@ class EntryController extends Controller
 			"page_m" => $page
 		));
 	}
-
-	public function customAction(Request $request){		
-		$em = $this->getDoctrine()->getEntityManager();
-		$entry_repo=$em->getRepository("BlogBundle:Entry");
-
-		$entries=$entry_repo->nativeSqlQuery();
-
-		return $this->render("BlogBundle:Entry:custom.html.twig",array(
-			"entries" => $entries
-		));
-	}
-
 
 	public function addAction(Request $request){
 		$entry = new Entry();
@@ -286,6 +274,10 @@ class EntryController extends Controller
 		$form = $this->createForm(CommentType::class,$comment);
 		$form->handleRequest($request);
 
+		//Listar comentarios de la entrada
+		$comment_repo = $em->getRepository("BlogBundle:Comment");
+		$comments=$comment_repo->getVerifiedCommentsByEntry($id);
+
 		if($form->isSubmitted()){
 			if($form->isValid()){
 				
@@ -303,7 +295,11 @@ class EntryController extends Controller
 				$flush=$em->flush();
 
 				if($flush==null) {
+
 					$status = "El comentario se ha enviado correctamente !!";
+					$mailer = $this->get('mail_helper');
+					$mailer->sendEmail($user);
+
 				} else {
 					$status ="Error al añadir enviar el comentario!!";
 				}
@@ -314,10 +310,8 @@ class EntryController extends Controller
 			
 			$this->session->getFlashBag()->add("status", $status);
 			//return $this->redirectToRoute("blog_homepage");
-		}
 
-		$comment_repo = $em->getRepository("BlogBundle:Comment");
-		$comments=$comment_repo->getVerifiedCommentsByEntry($id);
+		}
 
 		return $this->render("BlogBundle:Entry:view.html.twig",array(
 			"entry" => $entry,

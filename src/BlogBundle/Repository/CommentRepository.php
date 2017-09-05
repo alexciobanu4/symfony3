@@ -4,6 +4,11 @@ use \Doctrine\ORM\EntityRepository;
 
 class CommentRepository extends \Doctrine\ORM\EntityRepository {
 
+	public function findAllOrderBy($order)
+    {
+        return $this->findBy(array(), array($order => 'DESC'));
+    }
+
 	public function getVerifiedCommentsByEntry($id) {
 
 		$em = $this->getEntityManager();

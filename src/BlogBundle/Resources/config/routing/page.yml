@@ -1,0 +1,19 @@
+blog_index_page:
+    path: /{_locale}/pages
+    defaults: { _controller: BlogBundle:Page:index, _locale: es }
+    
+blog_add_page:
+    path: /{_locale}/pages/add
+    defaults: { _controller: BlogBundle:Page:add, _locale: es }
+
+blog_edit_page:
+    path: /{_locale}/pages/edit/{id}
+    defaults: { _controller: BlogBundle:Page:edit, _locale: es }
+
+blog_delete_page:
+    path: /pages/delete/{id}
+    defaults: { _controller: BlogBundle:Page:delete }
+
+blog_view_page:
+    path: /{_locale}/pages/view/{id}/{title}
+    defaults: { _controller: BlogBundle:Page:view, _locale: es }

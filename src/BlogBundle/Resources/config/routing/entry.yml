@@ -1,0 +1,16 @@
+
+blog_add_entry:
+    path: /{_locale}/entries/add
+    defaults: { _controller: BlogBundle:Entry:add, _locale: es }
+    
+blog_delete_entry:
+    path: /entries/delete/{id}
+    defaults: { _controller: BlogBundle:Entry:delete }
+    
+blog_edit_entry:
+    path: /{_locale}/entries/edit/{id}
+    defaults: { _controller: BlogBundle:Entry:edit, _locale: es }
+
+blog_view_entry:
+    path: /{_locale}/entries/view/{id}/{title}
+    defaults: { _controller: BlogBundle:Entry:view, _locale: es, title: alex }

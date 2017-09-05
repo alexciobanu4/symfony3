@@ -20,7 +20,7 @@ class CommentController extends Controller
 	public function indexAction(){
 		$em = $this->getDoctrine()->getManager();
 		$comment_repo=$em->getRepository("BlogBundle:Comment");
-		$comments=$comment_repo->findAll();
+		$comments=$comment_repo->findAllOrderBy("id");
 		
 		return $this->render("BlogBundle:Comment:index.html.twig",array(
 			"comments" => $comments
@@ -34,8 +34,11 @@ class CommentController extends Controller
 
 		$em->remove($comment);
 		$em->flush();
+
+		$status = "El comentario se ha eliminado";
+		$this->session->getFlashBag()->add("status", $status);
 		
-		return $this->redirectToRoute("blog_index_comment");
+		return $this->redirectToRoute("blog_index_comment", array('status' => $status));
 	}
 
 	public function verifyAction($id){
@@ -45,8 +48,11 @@ class CommentController extends Controller
 		$comment->setActive(1);
 		$em->persist($comment);
 		$em->flush();
+
+		$status = "El comentario ha sido aprobado";
+		$this->session->getFlashBag()->add("status", $status);
 		
-		return $this->redirectToRoute("blog_index_comment");
+		return $this->redirectToRoute("blog_index_comment", array('status' => $status));
 	}
 	
 }

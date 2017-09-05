@@ -22,32 +22,35 @@ security:
             anonymous: ~
             provider: our_db_provider
             form_login:
-                login_path: /login
-                check_path: /login_check
+                login_path: login
+                check_path: login_check
                 always_use_default_target_path: true
-                default_target_path: /index
+                default_target_path: blog_homepage
             logout:
-                path: /logout
-                target: /login
+                path: logout
+                target: login
             remember_me:
                 secret:   '%secret%'
                 lifetime: 604800 # 1 week in seconds
                 path:     /
+            access_denied_url: error403
 
     access_control:
-        - { path: ^/tags/add, roles: ROLE_ADMIN}
-        - { path: ^/tags/edit, roles: ROLE_ADMIN}
-        - { path: ^/tags/delete, roles: ROLE_ADMIN}
-        - { path: ^/categories/add, roles: ROLE_ADMIN}
-        - { path: ^/categories/edit, roles: ROLE_ADMIN}
-        - { path: ^/categories/delete, roles: ROLE_ADMIN}
-        - { path: ^/entries/add, roles: ROLE_ADMIN}
-        - { path: ^/entries/edit, roles: ROLE_ADMIN}
-        - { path: ^/entries/delete, roles: ROLE_ADMIN}
-        - { path: ^/pages/add, roles: ROLE_ADMIN}
-        - { path: ^/pages/edit, roles: ROLE_ADMIN}
-        - { path: ^/pages/delete, roles: ROLE_ADMIN}
-        - { path: ^/users, roles: ROLE_ADMIN}
+        - { path: ^/(es|en|ca)/users/add, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/(es|en|ca)/tags/add, roles: ROLE_ADMIN}
+        - { path: ^/(es|en|ca)/tags/edit, roles: ROLE_ADMIN}
+        - { path: ^/(es|en|ca)/tags/delete, roles: ROLE_ADMIN}
+        - { path: ^/(es|en|ca)/categories/add, roles: ROLE_ADMIN}
+        - { path: ^/(es|en|ca)/categories/edit, roles: ROLE_ADMIN}
+        - { path: ^/(es|en|ca)/categories/delete, roles: ROLE_ADMIN}
+        - { path: ^/(es|en|ca)/entries/add, roles: ROLE_ADMIN}
+        - { path: ^/(es|en|ca)/entries/edit, roles: ROLE_ADMIN}
+        - { path: ^/(es|en|ca)/entries/delete, roles: ROLE_ADMIN}
+        - { path: ^/(es|en|ca)/pages/add, roles: ROLE_ADMIN}
+        - { path: ^/(es|en|ca)/pages/edit, roles: ROLE_ADMIN}
+        - { path: ^/(es|en|ca)/pages/delete, roles: ROLE_ADMIN}
+        - { path: ^/(es|en|ca)/users, roles: ROLE_ADMIN}
+
             # activate different ways to authenticate
 
             # http_basic: ~

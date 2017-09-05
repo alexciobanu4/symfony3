@@ -11,30 +11,33 @@
     <br>
     {{ entry.content|raw }}
     <br>
-    <p>Categoria: {{entry.category.name}}</p>
-    <p>Autor: {{entry.user.name}}</p>
-    <p>Tags: 
+    <p><strong>Categoria:</strong> {{entry.category.name}}</p>
+    <p><strong>Autor:</strong> {{entry.user.name}}</p>
+    <p><strong>Tags:</strong> 
         {% for et in entry.entryTag %}
             <span class="label label-default">{{et.tag.name}}</span>
         {% endfor %}
     </p>
    <br>
-   <h2>Comenarios</h2>
-   {% for comment in comments %}
-        <p>
-        <em>{{ comment.date|date("d/m/Y") }}</em> | <strong>{{comment.user}}</strong> <br>
-        {{comment.content}}
-        </p>
-   {% endfor %}
-   <hr><br>
+   {% if comments|length > 0 %}
+   <h2>Comentarios</h2>
+       {% for comment in comments %}
+            <p>
+            <em>{{ comment.date|date("d/m/Y") }}</em> | <strong>{{comment.user}}</strong> <br>
+            {{comment.content}}
+            </p>
+       {% endfor %}
+       <hr>
+   {% endif %}
+   <br>
    <div class="title">
         <div class="title-container">
-            <h2>Enviar un comenario</h2>
+            <h2>Enviar un comentario</h2>
         </div>
     </div>
     <div class="form">
         <div class="form-container">
-
+        {% if app.user %}
             {% for message in app.session.flashbag().get('status') %}
                 <div class="alert alert-success">{{ message }}</div>
             {% endfor %}
@@ -43,14 +46,10 @@
                 <label>Comentario: </label>
                 {{form_widget(form.content)}}
             </div>
-            {#<div class="form__group">
-                <input type="text" name="entry" value="{{ entry.id }}">
-                <input type="text" name="user" value="{{ app.user.id }}">
-            </div>#}
-
-        {{form_end(form)}}
+            {{form_end(form)}}
+        {% else %}
+            Para poder dejar un comentario debes estar registrado. 
+        {% endif %}
         </div>
     </div> 
 {% endblock %}
-
-

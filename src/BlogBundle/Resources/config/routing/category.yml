@@ -1,0 +1,19 @@
+blog_index_category:
+    path: /{_locale}/categories
+    defaults: { _controller: BlogBundle:Category:index, _locale: es }
+    
+blog_add_category:
+    path: /{_locale}/categories/add
+    defaults: { _controller: BlogBundle:Category:add, _locale: es }
+    
+blog_delete_category:
+    path: /categories/delete/{id}
+    defaults: { _controller: BlogBundle:Category:delete }
+
+blog_edit_category:
+    path: /{_locale}/categories/edit/{id}
+    defaults: { _controller: BlogBundle:Category:edit, _locale: es }
+    
+blog_read_category:
+    path: /category/{id}/{page}
+    defaults: { _controller: BlogBundle:Category:category, page: 1 }

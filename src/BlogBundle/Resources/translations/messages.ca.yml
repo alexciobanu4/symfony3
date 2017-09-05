@@ -1,0 +1,34 @@
+btn_edit: Modificar
+btn_del: Eliminar
+# Header
+hello: Hola
+logout: Sortir
+#Menu
+menu_entries: Entrades
+menu_pages: Pàgines
+menu_categories: Categories
+menu_tags: Etiquetes
+menu_users: Usuaris
+menu_comments: Comentaris
+#Entradas
+title_entradas: Entrades
+add_entry: Afegir entrada
+#Páginas
+title_pages: Pàgines
+add_page: Afegir pàgina
+#Categorias
+title_categories: Categories
+add_category: Afegir Categoria
+#Etiquetas
+title_tags: Etiquetes
+add_tag: Afegir etiqueta
+#Usuarios
+title_users: Usuaris
+add_user: Afegir usuari
+#Comentarios
+title_comments: Comentaris
+
+title_register: Alta d'usuari
+title_login: Identificat
+
+text_footer: Blog creat amb Symfony 3

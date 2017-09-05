@@ -1,0 +1,11 @@
+blog_index_comment:
+    path: /{_locale}/comments
+    defaults: { _controller: BlogBundle:Comment:index, _locale: es }
+
+blog_delete_comment:
+    path: /comments/delete/{id}
+    defaults: { _controller: BlogBundle:Comment:delete }
+
+blog_verify_comment:
+    path: /comments/verify/{id}
+    defaults: { _controller: BlogBundle:Comment:verify }

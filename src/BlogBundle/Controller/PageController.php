@@ -113,7 +113,7 @@ class PageController extends Controller
 
 	public function viewAction($id){
 
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$page = $em->getRepository("BlogBundle:Page")
 		         ->findOneBy(array("id"=>$id));
 		$entry = $em->getRepository("BlogBundle:Entry")

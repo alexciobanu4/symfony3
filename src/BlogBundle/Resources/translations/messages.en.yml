@@ -1,0 +1,35 @@
+btn_edit: Edit
+btn_del: Delete
+
+# Header
+hello: Hello
+logout: Logout
+#Menu
+menu_entries: Posts
+menu_pages: Pages
+menu_categories: Categories
+menu_tags: Tags
+menu_users: Users
+menu_comments: Comments
+#Entradas
+title_entradas: Posts
+add_entry: Add post
+#Páginas
+title_pages: Pages
+add_page: Add page
+#Categorias
+title_categories: Categories
+add_category: Add category
+#Etiquetas
+title_tags: Tags
+add_tag: Add tag
+#Usuarios
+title_users: Users
+add_user: Add user
+#Comentarios
+title_comments: Comments
+
+title_register: Register user
+title_login: Login
+
+text_footer: Blog created with Symfony 3

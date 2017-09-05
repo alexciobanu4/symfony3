@@ -1,16 +1,12 @@
 {% extends "BlogBundle::layout.html.twig" %}
 
 {% block content %}
-    <div class="title">
-        <div class="title-container">
-            <h1>Entradas</h1><br>
-            <a href="{{path("blog_add_entry")}}" class="listado--add">Añadir entrada</a>
-        </div>
+<div class="title">
+    <div class="title-container">
+        <h1>{% trans %}title_entradas{% endtrans %}</h1><br>
+        <a href="{{path("blog_add_entry")}}" class="listado--add">{% trans %}add_entry{% endtrans %}</a>
     </div>
-    
-    {% for message in app.session.flashbag().get('status') %}
-        <div class="alert alert-success">{{ message }}</div>
-    {% endfor %}
+</div>
     
 <div class="listado">
     <div class="listado-container">

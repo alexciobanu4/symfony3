@@ -1,0 +1,34 @@
+btn_edit: Editar
+btn_del: Eliminar
+# Header
+hello: Hola
+logout: Salir
+#Menu
+menu_entries: Entradas
+menu_pages: Páginas
+menu_categories: Categorías
+menu_tags: Etiquetas
+menu_users: Usuarios
+menu_comments: Comentarios
+#Entradas
+title_entradas: Entradas
+add_entry: Añadir entrada
+#Páginas
+title_pages: Páginas
+add_page: Añadir página
+#Categorias
+title_categories: Categorías
+add_category: Añadir categoría
+#Etiquetas
+title_tags: Etiquetas
+add_tag: Añadir etiqueta
+#Usuarios
+title_users: Usuarios
+add_user: Añadir usuario
+#Comentarios
+title_comments: Comentarios
+
+title_register: Alta de usuario
+title_login: Identifícate
+
+text_footer: Blog creado en Symfony 3

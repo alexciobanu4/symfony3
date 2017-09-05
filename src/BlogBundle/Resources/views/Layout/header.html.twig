@@ -13,13 +13,19 @@
             <a href="{{path("blog_edit_user", {"id":app.user.id})}}">
             {% endif %}
                 {% if app.user != null %}
-                    Hola <strong>{{app.user.name}} {{app.user.surname}}</strong> | <a href="{{path("logout")}}">Salir</a>
+                    {% trans %}hello{% endtrans %} <strong>{{app.user.name}} {{app.user.surname}}</strong> | <a href="{{path("logout")}}">{% trans %}logout{% endtrans %}</a>
                 {% else %}
-                    <a href="{{path("login")}}">Entrar</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{{path("blog_add_user")}}">Alta usuario</a>
+                    <a href="{{path("login")}}">{% trans %}title_login{% endtrans %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{{path("blog_add_user")}}">{% trans %}title_register{% endtrans %}</a>
                 {% endif %}
             {% if app.user != null %}
             </a>
             {% endif %}
+            -  
+            <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'es'}))}}"> ES </a> | 
+
+            <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'en'}))}}"> EN </a> | 
+            
+            <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'ca'}))}}"> CA </a>
         </div>
     </div>
 </header>

@@ -42,5 +42,5 @@ BlogBundle\Entity\Comment:
             content:
                 - NotBlank: {message: "El comentario no puede estar vacío"}
                 - Length:
-                    min: 50
+                    min: 5
                     minMessage: "El comentario debe que tener mas de 50 caracteres"

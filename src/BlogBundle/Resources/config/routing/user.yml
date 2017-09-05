@@ -1,0 +1,15 @@
+blog_index_user:
+    path: /{_locale}/users
+    defaults: { _controller: BlogBundle:User:index, _locale: es }
+
+blog_add_user:
+    path: /{_locale}/users/add
+    defaults: { _controller: BlogBundle:User:add, _locale: es }
+
+blog_edit_user:
+    path: /{_locale}/users/edit/{id}
+    defaults: { _controller: BlogBundle:User:edit, _locale: es }
+
+blog_delete_user:
+    path: /users/delete/{id}
+    defaults: { _controller: BlogBundle:User:delete }

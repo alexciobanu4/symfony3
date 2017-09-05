@@ -1,7 +1,14 @@
 #################### COMMON ########################
+blog_homepage:
+    path:     /{_locale}/{page}
+    defaults: { _controller: BlogBundle:Entry:index, page: 1, _locale: es }
+    requirements:
+        _locale:  es|en|ca
+        page: '\d+'
+
 login:
-    path: /login
-    defaults: { _controller: BlogBundle:User:login }
+    path: /{_locale}/login
+    defaults: { _controller: BlogBundle:User:login, _locale: es }
     
 login_check:
     path: /login_check
@@ -9,117 +16,36 @@ login_check:
 logout:
     path: /logout
 
-blog_homepage:
-    path:     /index/{page}
-    defaults: { _controller: BlogBundle:Entry:index, page:1 }
-
-blog_homepage_custom:
-    path:     /custom
-    defaults: { _controller: BlogBundle:Entry:custom }
+error403:
+    path: /{_locale}/error403
+    defaults: { _controller: BlogBundle:Security:denied, _locale: es }
 
 #################### TAG ########################
-blog_index_tag:
-    path: /tags
-    defaults: { _controller: BlogBundle:Tag:index }
-    
-blog_add_tag:
-    path: /tags/add
-    defaults: { _controller: BlogBundle:Tag:add }
-    
-blog_delete_tag:
-    path: /tags/delete/{id}
-    defaults: { _controller: BlogBundle:Tag:delete }
+blog_tag:
+    resource: "@BlogBundle/Resources/config/routing/tag.yml"
+    prefix:   /
 
 #################### CATEGORY ########################
-blog_index_category:
-    path: /categories
-    defaults: { _controller: BlogBundle:Category:index }
-    
-blog_add_category:
-    path: /categories/add
-    defaults: { _controller: BlogBundle:Category:add }
-    
-blog_delete_category:
-    path: /categories/delete/{id}
-    defaults: { _controller: BlogBundle:Category:delete }
-
-blog_edit_category:
-    path: /categories/edit/{id}
-    defaults: { _controller: BlogBundle:Category:edit }
-    
-blog_read_category:
-    path: /category/{id}/{page}
-    defaults: { _controller: BlogBundle:Category:category, page:1 }
+blog_category:
+    resource: "@BlogBundle/Resources/config/routing/category.yml"
+    prefix:   /
 
 #################### ENTRY ########################
-blog_add_entry:
-    path: /entries/add
-    defaults: { _controller: BlogBundle:Entry:add }
-    
-blog_delete_entry:
-    path: /entries/delete/{id}
-    defaults: { _controller: BlogBundle:Entry:delete }
-    
-blog_edit_entry:
-    path: /entries/edit/{id}
-    defaults: { _controller: BlogBundle:Entry:edit }
-
-blog_view_entry:
-    path: /entries/view/{id}/{title}
-    defaults: { _controller: BlogBundle:Entry:view, title:alex }
+blog_entry:
+    resource: "@BlogBundle/Resources/config/routing/entry.yml"
+    prefix:   /
 
 #################### USER ########################
-blog_index_user:
-    path: /users
-    defaults: { _controller: BlogBundle:User:index }
-
-blog_add_user:
-    path: /users/add
-    defaults: { _controller: BlogBundle:User:add }
-
-blog_edit_user:
-    path: /users/edit/{id}
-    defaults: { _controller: BlogBundle:User:edit }
-
-blog_delete_user:
-    path: /users/delete/{id}
-    defaults: { _controller: BlogBundle:User:delete }
+blog_user:
+    resource: "@BlogBundle/Resources/config/routing/user.yml"
+    prefix:   /
 
 #################### PAGE ########################
-blog_index_page:
-    path: /pages
-    defaults: { _controller: BlogBundle:Page:index }
-    
-blog_add_page:
-    path: /pages/add
-    defaults: { _controller: BlogBundle:Page:add }
-
-blog_edit_page:
-    path: /pages/edit/{id}
-    defaults: { _controller: BlogBundle:Page:edit }
-
-blog_delete_page:
-    path: /pages/delete/{id}
-    defaults: { _controller: BlogBundle:Page:delete }
-
-blog_view_page:
-    path: /pages/view/{id}/{title}
-    defaults: { _controller: BlogBundle:Page:view, title:alex }
+blog_page:
+    resource: "@BlogBundle/Resources/config/routing/page.yml"
+    prefix:   /
 
 #################### COMMENT ########################
-blog_index_comment:
-    path: /comments
-    defaults: { _controller: BlogBundle:Comment:index }
-
-blog_delete_comment:
-    path: /comments/delete/{id}
-    defaults: { _controller: BlogBundle:Comment:delete }
-
-blog_verify_comment:
-    path: /comments/verify/{id}
-    defaults: { _controller: BlogBundle:Comment:verify }
-
-#################### LANG ########################
-blog_lang:
-    path: /lang/{_locale}
-    defaults: { _controller: BlogBundle:Default:lang }
+blog_comment:
+    resource: "@BlogBundle/Resources/config/routing/comment.yml"
+    prefix:   /

@@ -1,0 +1,11 @@
+blog_index_tag:
+    path: /{_locale}/tags
+    defaults: { _controller: BlogBundle:Tag:index, _locale: es  }
+    
+blog_add_tag:
+    path: /{_locale}/tags/add
+    defaults: { _controller: BlogBundle:Tag:add, _locale: es }
+    
+blog_delete_tag:
+    path: /tags/delete/{id}
+    defaults: { _controller: BlogBundle:Tag:delete }

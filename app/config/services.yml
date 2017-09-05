@@ -14,9 +14,3 @@ services:
     #     tags:
     #         - { name: twig.extension }
 
-    app.locale_listener:
-        class: BlogBundle\EventListener\LocaleListener
-        arguments: ["%kernel.default_locale%"]
-        tags:
-            - { name: kernel.event_suscriber }
-
