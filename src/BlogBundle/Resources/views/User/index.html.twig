@@ -18,7 +18,8 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Email</th>
-                <th>Rol</th>
+                <th>Nacimiento</th>
+                <th>Roles</th>
                 <th>Editar</th>
             </tr>
             {% for user in users %}
@@ -26,7 +27,16 @@
                     <td>{{ user.name }}</td>
                     <td>{{ user.surname }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.role }}</td>
+                    <td>
+                    {% if (user.birthday != null) %}
+                        {{ user.birthday|date("d/m/Y") }}
+                    {% endif %}
+                    </td>
+                    <td>
+                        {% for rol in user.roles %}
+                           {{ rol }}<br>
+                        {% endfor %}
+                    </td>
                     <td>
                         <div class="viewmore">
                             {% if (app.user.id is defined) %}

@@ -5,13 +5,18 @@
 input[type="file"] {
     width: inherit !important;
 }
+input[type="checkbox"] {
+    width: inherit !important;
+    margin-left: 10px;
+    margin-right: 10px;
+}
 
 input:not([type="submit"]) {
     background-color: $color-white;
     border: 1px solid $color-gray-a;
     color: $color-black;
     @include rem(padding, 10px);
-    @include size(100% 45px);
+    width: 100%;
     @include transition(all 0.7s ease 0s);
     @include placeholder-color($color-gray-b);
     &:hover {
@@ -41,7 +46,7 @@ textarea {
 
 label {
     @include font(18px, 24px, 400, $font-lato);
-    display: block;
+    display: inline-block;
 }
 
 .error {

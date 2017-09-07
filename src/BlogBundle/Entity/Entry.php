@@ -304,5 +304,14 @@ class Entry
     {
         return $this->page;
     }
-}
 
+    /**
+     * Remove entryTag
+     *
+     * @param \BlogBundle\Entity\EntryTag $entryTag
+     */
+    public function removeEntryTag(\BlogBundle\Entity\EntryTag $entryTag)
+    {
+        $this->entryTag->removeElement($entryTag);
+    }
+}

@@ -110,7 +110,7 @@ class CategoryController extends Controller
 					$status ="Error al editar la categoria!!";
 				}
 				
-			}else{
+			} else {
 				$status = "La categoria no se ha editado, porque el formulario no es valido !!";
 			}
 			

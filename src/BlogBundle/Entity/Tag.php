@@ -89,5 +89,28 @@ class Tag
 	public function getEntryTag(){
 		return $this->entryTag;
 	}
-}
 
+    /**
+     * Add entryTag
+     *
+     * @param \BlogBundle\Entity\EntryTag $entryTag
+     *
+     * @return Tag
+     */
+    public function addEntryTag(\BlogBundle\Entity\EntryTag $entryTag)
+    {
+        $this->entryTag[] = $entryTag;
+
+        return $this;
+    }
+
+    /**
+     * Remove entryTag
+     *
+     * @param \BlogBundle\Entity\EntryTag $entryTag
+     */
+    public function removeEntryTag(\BlogBundle\Entity\EntryTag $entryTag)
+    {
+        $this->entryTag->removeElement($entryTag);
+    }
+}

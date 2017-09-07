@@ -5,6 +5,7 @@
         <title>{% block title %} Blog con Symfony3 {% endblock %}</title>
         <link href="{{ asset('dist/styles/main.css') }}" rel="stylesheet" />
         <link href="{{ asset('favicon.ico') }}" rel="icon" />
+        {% block styles %}  {% endblock %}
     </head>
     <body>
 
@@ -17,32 +18,10 @@
         </section>
 
         {% include "BlogBundle:Layout:footer.html.twig" %}
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        
+        <script type="text/javascript" src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
         <script src="{{ asset('dist/scripts/main.js') }}"></script>
-        <script type="text/javascript">
-        $(function () {
-            
-            var filterList = {
-            
-                init: function () {
-                    // MixItUp plugin
-                    $('#portfoliolist').mixItUp({
-                    selectors: {
-                      target: '.portfolio',
-                      filter: '.filter' 
-                  },
-                  load: {
-                  //filter: '.Symfony'  
-                }     
-                    });                             
-                
-                }
-
-            };
-            // Run the show!
-            filterList.init();
-        }); 
-        </script>
+        
+        {% block scripts %}  {% endblock %}
     </body>
 </html>

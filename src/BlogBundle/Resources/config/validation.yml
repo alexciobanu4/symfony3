@@ -36,6 +36,8 @@ BlogBundle\Entity\User:
                 - NotBlank: {message: "El email no puede estar vacío."}
                 - Email: {message: "El email {{ value }} no es válido." }
                 #     checkMX: true
+            roles:
+                - NotBlank: {message: "Debes seleccionar al menos un rol."}
 
 BlogBundle\Entity\Comment:
     properties:

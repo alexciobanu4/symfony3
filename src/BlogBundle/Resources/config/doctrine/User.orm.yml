@@ -11,12 +11,6 @@ BlogBundle\Entity\User:
             generator:
                 strategy: IDENTITY
     fields:
-        role:
-            type: string
-            nullable: true
-            length: 20
-            options:
-                fixed: false
         name:
             type: string
             nullable: true
@@ -43,6 +37,18 @@ BlogBundle\Entity\User:
                 fixed: false
         imagen:
             type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        roles:
+            type: array
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        birthday:
+            type: date
             nullable: true
             length: 255
             options:

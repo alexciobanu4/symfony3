@@ -3,10 +3,17 @@
 security:
     encoders:
         BlogBundle\Entity\User: bcrypt
+        #FOS\UserBundle\Model\UserInterface: bcrypt
             #algorithm: bcrypt
             #cost: 4
+    role_hierarchy:
+        ROLE_USER:       ROLE_BECARIO
+        ROLE_ADMIN:       [ROLE_USER, ROLE_BECARIO]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_USER, ROLE_BECARIO]
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
+        # fos_userbundle:
+        #     id: fos_user.user_provider.username
         our_db_provider:
             entity:
                 class: BlogBundle:User
@@ -19,9 +26,11 @@ security:
             security: false
 
         main:
-            anonymous: ~
+            anonymous: true
             provider: our_db_provider
             form_login:
+                #provider: fos_userbundle
+                #csrf_token_generator: security.csrf.token_manager
                 login_path: login
                 check_path: login_check
                 always_use_default_target_path: true
@@ -36,7 +45,7 @@ security:
             access_denied_url: error403
 
     access_control:
-        - { path: ^/(es|en|ca)/users/add, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/(es|en|ca)/users/add, roles: ROLE_SUPER_ADMIN}
         - { path: ^/(es|en|ca)/tags/add, roles: ROLE_ADMIN}
         - { path: ^/(es|en|ca)/tags/edit, roles: ROLE_ADMIN}
         - { path: ^/(es|en|ca)/tags/delete, roles: ROLE_ADMIN}

@@ -88,4 +88,3 @@ class Page
 		return $this->page;
 	}
 }
-

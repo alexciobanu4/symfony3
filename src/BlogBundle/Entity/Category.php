@@ -119,5 +119,38 @@ class Category
     {
         return $this->slug;
     }
-}
 
+    /**
+     * Add entry
+     *
+     * @param \BlogBundle\Entity\Entry $entry
+     *
+     * @return Category
+     */
+    public function addEntry(\BlogBundle\Entity\Entry $entry)
+    {
+        $this->entry[] = $entry;
+
+        return $this;
+    }
+
+    /**
+     * Remove entry
+     *
+     * @param \BlogBundle\Entity\Entry $entry
+     */
+    public function removeEntry(\BlogBundle\Entity\Entry $entry)
+    {
+        $this->entry->removeElement($entry);
+    }
+
+    /**
+     * Get entry
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEntry()
+    {
+        return $this->entry;
+    }
+}

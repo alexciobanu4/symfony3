@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class UserType extends AbstractType
 {
@@ -20,8 +21,15 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $permissions = array(
+            'Becario'   => 'ROLE_BECARIO',
+            'Usuario'   => 'ROLE_USER',
+            'Admin'     => 'ROLE_ADMIN',
+            'SuperAdmin' => 'ROLE_SUPER_ADMIN'
+        );
+
         $builder
-            ->add('name',TextType::class, array("label"=>"Nombre","required"=>false, "attr" =>array(
+            ->add('name',TextType::class, array("label"=>"Nombre:","required"=>false, "attr" =>array(
 				"class" => "form-name form-control",
 			)))
             ->add('surname',TextType::class, array("label"=>"Apellido","required"=>false, "attr" =>array(
@@ -42,13 +50,21 @@ class UserType extends AbstractType
                 "attr" =>array(
     				"class" => "form-password form-control",
     			)))
-            ->add('role', ChoiceType::class,array(
-                "label" => "Rol:",
-                "choices"=> array(
-                    "Admin" => "ROLE_ADMIN",
-                    "User" => "ROLE_USER"
-                ),
+            ->add('roles', ChoiceType::class,array(
+                "label" => "Roles:",
+                'choices' => $permissions,
+                'required' => true,
+                'multiple'=>true, //Seleccion multiple
+                'expanded'=>true, //Para mostrar checkbox en vez de desplegable
                 "attr" =>array("class" => "form-control")
+            ))
+            ->add('birthday', DateType::class, array(
+                'widget' => 'single_text',
+                // this is actually the default format for single_text
+                'format' => 'yyyy-MM-dd',
+                'html5' => false,
+                //'years' => range(1940,2000),
+                'attr' => ['data-toggle' => 'datepicker'],
             ))
 			->add('Guardar', SubmitType::class, array("attr" =>array(
 				"class" => "form-submit btn btn-success",

@@ -65,3 +65,32 @@
 </ul>
 
 {% endblock %}
+
+{% block scripts %}  
+
+<script type="text/javascript">
+$(function () {
+    
+    var filterList = {
+    
+        init: function () {
+            // MixItUp plugin
+            $('#portfoliolist').mixItUp({
+            selectors: {
+              target: '.portfolio',
+              filter: '.filter' 
+          },
+          load: {
+          //filter: '.Symfony'  
+        }     
+            });                             
+        
+        }
+
+    };
+    // Run the show!
+    filterList.init();
+}); 
+</script>
+
+{% endblock %}

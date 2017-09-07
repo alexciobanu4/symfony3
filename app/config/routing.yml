@@ -4,6 +4,8 @@ blog:
     requirements:
         _locale: es|en|ca
 
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
 # rutas:
 #     resource: "@AppBundle/Resources/config/routing.yml"

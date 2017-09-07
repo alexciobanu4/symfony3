@@ -11,12 +11,6 @@ class User implements UserInterface
      * @var integer
      */
     private $id;
-
-    /**
-     * @var string
-     */
-    private $role;
-
     /**
      * @var string
      */
@@ -38,13 +32,21 @@ class User implements UserInterface
     private $password;
 
     private $plainPassword;
+
+    private $roles;
     /**
      * @var string
      */
-    private $imagen;	
+    private $imagen;
+
+    /**
+     * @var date
+     */
+    private $birthday;	
 	
 	public function __construct() {
         $this->entry = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->roles = array();
     }
 
     public function __toString() {
@@ -58,10 +60,6 @@ class User implements UserInterface
 	
 	public function getSalt() {
 		return null;
-	}
-	
-	public function getRoles() {
-		return array($this->getRole());
 	}
 
 	public function eraseCredentials() {
@@ -80,31 +78,6 @@ class User implements UserInterface
     {
         return $this->id;
     }
-
-    /**
-     * Set role
-     *
-     * @param string $role
-     *
-     * @return User
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    /**
-     * Get role
-     *
-     * @return string
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
     /**
      * Set name
      *
@@ -223,6 +196,47 @@ class User implements UserInterface
     public function getImagen()
     {
         return $this->imagen;
+    }
+
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Get roles
+     *
+     * @return array
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * Set date
+     *
+     * @param birthday $birthday
+     *
+     * @return Entry
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    /**
+     * Get birthday
+     *
+     * @return birthday
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
     }
 
 }

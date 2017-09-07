@@ -1,4 +1,9 @@
 {% extends "BlogBundle::layout.html.twig"%}
+
+{% block styles %} 
+<link href="{{ asset('bower_components/datepicker/dist/datepicker.min.css') }}" rel="stylesheet" />
+{% endblock %}
+
 {% block content %}
     
     <div class="title">
@@ -13,7 +18,7 @@
             {% endfor %}
             {{form_start(form, {'action':'', 'method':'POST', 'attr': {'novalidate': 'novalidate'}})}}
             <div class="form__group">
-                <label>Nombre: </label>
+                {{form_label(form.name)}}
                 {{form_widget(form.name)}}
             </div>
             <div class="form__group">
@@ -28,11 +33,27 @@
                 {{form_widget(form.password)}}
             </div>
             <div class="form__group">
-                <label>Rol: </label>
-                {{form_widget(form.role)}}
+                <label>Roles: </label>
+                {{form_widget(form.roles)}}
+            </div>
+            <div class="form__group">
+                <label>Fecha de nacimiento: </label>
+                {{form_widget(form.birthday)}}
             </div>
             {{form_end(form)}}
         </div>
     </div>
 
+{% endblock %}
+
+{% block scripts %}  
+<script type="text/javascript" src="{{ asset('bower_components/datepicker/dist/datepicker.min.js') }}"></script>
+<script type="text/javascript">
+    jQuery(function($) {
+        $('[data-toggle="datepicker"]').datepicker({
+          language: 'es-ES',
+          format: 'yyyy-mm-dd'
+        });
+    });
+</script>
 {% endblock %}

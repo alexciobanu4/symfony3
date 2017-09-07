@@ -61,7 +61,8 @@ class UserController extends Controller
 					$password = $encoder->encodePassword($form->get("password")->getData(), $user->getSalt());
 
 					$user->setPassword($password);
-					$user->setRole($form->get("role")->getData());
+					$user->setRoles($form->get("roles")->getData());
+					$user->setBirthday($form->get("birthday")->getData());
 					$user->setImagen(null);
 
 					$em = $this->getDoctrine()->getEntityManager();
@@ -112,7 +113,8 @@ class UserController extends Controller
 					$user->setPassword($password);
 				}
 
-				$user->setRole($form->get("role")->getData());
+				$user->setRoles($form->get("roles")->getData());
+				$user->setBirthday($form->get("birthday")->getData());
 				$user->setImagen(null);
 
 				$em->persist($user);
