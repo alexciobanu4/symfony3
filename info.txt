@@ -1,0 +1,38 @@
+Symfony installation
+composer create-project symfony/framework-standard-edition symfony.dev “3.1.*”
+
+Clear your Symfony Cache
+php bin/console cache:clear --env=prod --no-debug --no-warmup
+php bin/console cache:warmup --env=prod
+
+Run Symfony server
+php bin/console server:run
+
+Crear un bundle
+php bin/console generate:bundle
+
+Doctrine/ORM
+
+Convertir tablas de una base de datos y genera ficheros xml
+php bin/console doctrine:mapping:convert xml ./src/AppBundle/Resources/config/doctrine/metadata/orm --from-database --force
+
+Crear los yml a partir de una estructura xml
+php bin/console doctrine:mapping:import AppBundle yml
+
+Generar las entidades y sus clases php a partir de los yml
+php bin/console doctrine:generate:entities AppBundle
+
+Generar una entidad sin tener creada una base de datos
+php bin/console doctrine:generate:entity
+
+Crea o actualiza tablas y campos a partir de cambios que hagamos en las entidades
+php bin/console doctrine:schema:update --force --complete --dump-sql
+
+Borra las tablas de la bbdd
+php bin/console doctrine:schema:drop --force
+
+Crea las tablas de la bbdd a partir de los yml
+php bin/console doctrine:schema:create
+
+Crear un formulario con los campos de una entidad
+php bin/console doctrine:generate:form AlexBundle:Usuarios
