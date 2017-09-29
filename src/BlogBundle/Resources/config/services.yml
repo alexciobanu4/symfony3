@@ -23,3 +23,7 @@ services:
         arguments: ['@mailer']
         calls:
         - [setContainer, ["@service_container"]]
+
+    app.manager.category:
+        class: BlogBundle\Manager\CategoryManager
+        arguments: ['@doctrine.orm.entity_manager']

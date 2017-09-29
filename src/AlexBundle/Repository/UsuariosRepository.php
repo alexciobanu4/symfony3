@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
 class UsuariosRepository extends EntityRepository
 {
 	public function getUsuarios() {
-		$em = $this->getManager();
+		$em = $this->getDoctrine()->getManager();
 		$query = $em->createQueryBuilder("u")
 			->orderBy('u.name', 'ASC')
             ->getQuery();

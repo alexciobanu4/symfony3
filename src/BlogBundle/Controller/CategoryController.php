@@ -27,6 +27,8 @@ class CategoryController extends Controller
 	}
 	
 	public function addAction(Request $request){
+		
+		$em = $this->getDoctrine()->getManager();
 		$category = new Category();
 		$form = $this->createForm(CategoryType::class,$category);
 		
@@ -35,19 +37,12 @@ class CategoryController extends Controller
 		if($form->isSubmitted()){
 			if($form->isValid()){
 				
-				$em = $this->getDoctrine()->getManager();
-
-				$category = new Category();
-				$category->setName($form->get("name")->getData());
-				$category->setDescription($form->get("description")->getData());
-
 				$functions = $this->get('functions');
 				$slug=$functions->createSlug($form->get("name")->getData());
 				$category->setSlug($slug);
 				
-				$em->persist($category);
-				$flush = $em->flush();
-				
+				$this->get('app.manager.category')->guardar($category);
+
 				if($flush==null){
 					$status = "La categoria se ha creado correctamente !!";
 				}else{
@@ -62,7 +57,6 @@ class CategoryController extends Controller
 			//return $this->redirectToRoute("blog_index_category");
 		}
 		
-		
 		return $this->render("BlogBundle:Category:add.html.twig",array(
 			"form" => $form->createView(),
 			"status" => $status
@@ -75,8 +69,7 @@ class CategoryController extends Controller
 		$category=$category_repo->find($id);
 		
 		if(count($category->getEntries())==0){
-			$em->remove($category);
-			$em->flush();
+			$this->get('app.manager.category')->borrar($category);
 		}
 		
 		return $this->redirectToRoute("blog_index_category");
@@ -94,15 +87,11 @@ class CategoryController extends Controller
 		if($form->isSubmitted()){
 			if($form->isValid()){
 
-				$category->setName($form->get("name")->getData());
-				$category->setDescription($form->get("description")->getData());
-
 				$functions = $this->get('functions');
 				$slug=$functions->createSlug($form->get("name")->getData());
 				$category->setSlug($slug);
 
-				$em->persist($category);
-				$flush = $em->flush();
+				$this->get('app.manager.category')->guardar($category);
 				
 				if($flush==null){
 					$status = "La categoria se ha editado correctamente !!";
