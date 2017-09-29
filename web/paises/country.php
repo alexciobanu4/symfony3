@@ -254,15 +254,19 @@
   'ZW' => 'Zimbabue',
 );
 
-
+//JSON
 $url = 'country.json'; // path to your JSON file
 $data = file_get_contents($url); // put the contents of the file into a variable
 $paises = json_decode($data); // decode the JSON feed
 
+//YAML
+include('Spyc.php'); //Libreria para parsear un YAML
+$array = Spyc::YAMLLoad('country.yaml');
+
 ?>
 
 <select>
-  <?php foreach ($paises as $pais) { ?>
+  <?php foreach ($array as $pais) { ?>
   <option value="<?=$pais?>"><?=$pais?></option>
   <?php } ?>
 </select>
